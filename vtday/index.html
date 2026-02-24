@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shashwot's Heart 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+Devanagari:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary: #e5678c; --purple: #9b59b6; --gold: #d4a853; --muted: #7a6b70; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cormorant Garamond', serif; background: linear-gradient(180deg, #fef1f4, #f3e4ec, #ece4f3); color: #1a1215; min-height: 100vh; overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; text-align: center; }
+    
+    /* Password Screen */
+    #password-screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; background: linear-gradient(180deg, #fef1f4, #f3e4ec, #ece4f3); z-index: 1000; transition: opacity 0.5s ease; }
+    #password-screen.hidden { opacity: 0; pointer-events: none; }
+    .password-title { font-family: 'Dancing Script', cursive; font-size: 3rem; background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+    .password-input { width: 100%; max-width: 320px; height: 3.5rem; padding: 0 1rem; font-size: 1.1rem; border: 2px solid rgba(229, 103, 140, 0.3); border-radius: 0.75rem; background: rgba(255, 255, 255, 0.8); margin-bottom: 1rem; text-align: center; }
+    .password-input.error { border-color: #e74c3c; animation: shake 0.5s ease; }
+    .password-btn { width: 100%; max-width: 320px; height: 3.5rem; font-size: 1.2rem; font-family: 'Dancing Script', cursive; color: white; background: linear-gradient(135deg, var(--primary), var(--purple)); border: none; border-radius: 0.75rem; cursor: pointer; }
+
+    /* Choice Screen */
+    #choice-screen { display: none; min-height: 100vh; padding: 3rem 1rem; }
+    #choice-screen.visible { display: block; animation: fadeIn 0.8s ease; }
+    .choice-title { font-family: 'Dancing Script', cursive; font-size: clamp(2.5rem, 6vw, 4rem); background: linear-gradient(135deg, var(--primary), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem; }
+    .choices { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; max-width: 900px; margin: 0 auto; }
+    .choice-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); border-radius: 2rem; padding: 3rem 2rem; cursor: pointer; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 40px rgba(0,0,0,0.1); border: 3px solid transparent; width: 320px; }
+    
+    #heart-choice { display: none; opacity: 0; transform: scale(0.8); }
+    #heart-choice.reveal { display: block; opacity: 1; transform: scale(1); animation: popIn 0.6s forwards; }
+    .choice-card:hover { transform: translateY(-10px); box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+    .choice-card.football { border-color: #1e88e5; }
+    .choice-card.heart { border-color: var(--primary); }
+    .choice-icon { font-size: 5rem; margin-bottom: 1.5rem; display: block; }
+    .choice-image { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-bottom: 1.5rem; border: 4px solid currentColor; }
+    .choice-name { font-family: 'Dancing Script', cursive; font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+    /* Modal Styling */
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center; padding: 1rem; }
+    .modal.show { display: flex; animation: fadeIn 0.3s ease; }
+    .modal-content { background: white; border-radius: 1.5rem; padding: 2.5rem; max-width: 450px; text-align: center; animation: slideIn 0.3s ease; }
+    .secret-input { width: 100%; padding: 0.8rem; margin: 1rem 0; border: 2px solid #ddd; border-radius: 0.5rem; text-align: center; font-family: inherit; }
+    .modal-btn { padding: 0.8rem 2rem; font-family: 'Dancing Script', cursive; font-size: 1.3rem; background: linear-gradient(135deg, var(--primary), var(--purple)); color: white; border: none; border-radius: 2rem; cursor: pointer; }
+
+    @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-50px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+  </style>
+</head>
+<body>
+
+  <div id="password-screen">
+    <div style="font-size: 5rem;">💕</div>
+    <h1 class="password-title">Welcome to My Heart</h1>
+    <form id="password-form">
+      <input type="password" class="password-input" id="main-password" placeholder="Enter password..." autocomplete="off">
+      <button type="submit" class="password-btn">Enter</button>
+    </form>
+  </div>
+
+  <div id="choice-screen">
+    <div class="container">
+      <h1 class="choice-title">What Part of Shashwot's Heart Do You Want?</h1>
+      <p style="margin-bottom: 3rem; color: var(--muted); font-style: italic;">
+        Currently showing 1 public available section. Private parts require a special key...
+      </p>
+      
+      <div class="choices">
+        <div class="choice-card football" id="football-card" onclick="openSecretModal()">
+          <div class="choice-icon">⚽</div>
+          <h3 class="choice-name" style="color: #1e88e5;">Football Heart</h3>
+          <p>Reserved for Messi & the game 🐐</p>
+        </div>
+        
+        <div class="choice-card heart" id="heart-choice" onclick="goToKoiKoi()">
+          <span class="choice-icon">💖</span>
+          <h3 class="choice-name" style="color: var(--primary);">Koi Koi Heart</h3>
+          <p class="nepali-text" style="font-family: 'Noto Sans Devanagari';">मायाको मुटु - The Heart of Love</p>
+        </div>
+      </div>
+        <p style="margin-bottom: 3rem; color: var(--muted); font-style: italic;">
+          Hint: You have to click my public heart to go inside my actual one!
+        </p>
+      
+    </div>
+  </div>
+
+  <div class="modal" id="secret-modal">
+    <div class="modal-content">
+      <div style="font-size: 3rem;">🔐</div>
+      <h2 style="font-family: 'Dancing Script'; font-size: 2.2rem; color: var(--purple); margin: 0.5rem 0;">A Secret Challenge!</h2>
+      <p style="font-size: 1rem; color: #666;">
+        This part of my heart is occupied by football. To find the "other" part, you must enter the secret nickname/name:
+      </p>
+      <input type="text" id="secret-name-input" class="secret-input" placeholder="Enter the secret name...">
+      <button class="modal-btn" onclick="checkSecretName()">Unlock Other Part 💕</button>
+      <p id="secret-error" style="color: #e74c3c; font-size: 0.9rem; margin-top: 10px; display: none;">That's not it! Try again, Silly! 😉</p>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = { 
+        mainPassword: "shashwot",
+        secretHeartKey: "koikoi" // Change this to whatever nickname/name you want
+    };
+
+    // First Password Gate
+    document.getElementById('password-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = document.getElementById('main-password');
+      if (input.value.toLowerCase() === CONFIG.mainPassword.toLowerCase()) {
+        document.getElementById('password-screen').classList.add('hidden');
+        setTimeout(() => { document.getElementById('choice-screen').classList.add('visible'); }, 500);
+      } else {
+        input.classList.add('error');
+        setTimeout(() => input.classList.remove('error'), 500);
+      }
+    });
+
+    function openSecretModal() {
+      document.getElementById('secret-modal').classList.add('show');
+    }
+
+    function checkSecretName() {
+      const input = document.getElementById('secret-name-input');
+      const errorMsg = document.getElementById('secret-error');
+      
+      if (input.value.toLowerCase().trim() === CONFIG.secretHeartKey.toLowerCase()) {
+        // Correct!
+        document.getElementById('secret-modal').classList.remove('show');
+        revealRealHeart();
+      } else {
+        // Wrong
+        errorMsg.style.display = 'block';
+        input.style.borderColor = '#e74c3c';
+        setTimeout(() => {
+            errorMsg.style.display = 'none';
+            input.style.borderColor = '#ddd';
+        }, 2000);
+      }
+    }
+
+    function revealRealHeart() {
+      const heartCard = document.getElementById('heart-choice');
+      heartCard.classList.add('reveal');
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function goToKoiKoi() {
+      window.location.href = 'koikoi.html';
+    }
+  </script>
+</body>
+</html>

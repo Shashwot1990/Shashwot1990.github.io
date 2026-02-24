@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Travel Journey</title>
+
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+    <script src="https://unpkg.com/esri-leaflet-vector@4.2.2/dist/esri-leaflet-vector.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- The div element where the map will be rendered -->
+    <div id="map"></div>
+
+    <script>
+      // Initialize the map and set its view to the center of the USA
+      const map = L.map("map").setView([34.055569, -117.182541], 4); // Centered on the USA
+
+      // Esri API key to access the basemap layer
+      const apiKey = "AAPK9b7a0cd16b0f4cfeb72526f9f6fdf7fbZOjUz_ja8A2HSpxAyGlbjQIIxHFTODOA2rx1-3eRTkjY4ZETNHUIdDmTEiEbzlEl";
+
+      // Add Esri vector basemap layer to the map
+      L.esri.Vector.vectorBasemapLayer("arcgis/community", {
+        apiKey: apiKey
+      }).addTo(map);
+
+      // Array of objects containing information about the places to pin on the map
+      const places = [
+        {
+          name: "Skull Rock",
+          coords: [33.997764, -116.059443],
+          date: "July 16, 1790",
+          description: "Skull-shaped desert granite rock formation with 2 depressions like eye sockets created by erosion.",
+          imageUrl: "https://www.nps.gov/jotr/learn/nature/images/12489691874_b5bbfaa7e3_k.jpg"
+        },
+        {
+          name: "Cholla Cactus Garden",
+          coords: [33.924747, -115.929411],
+          date: "July 16, 1790",
+          description: "Beautiful sunrise view",
+          imageUrl: "https://alexysabroad.com/wp-content/uploads/2024/01/cholla-cactus-garden-sunrise-3.jpg"
+        },
+        {
+          name: "New York City",
+          coords: [40.7128, -74.0060],
+          date: "Founded: 1624",
+          description: "The largest city in the United States.",
+          imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4f/New_York_City_at_night_HDR_edit1.jpg"
+        },
+        {
+          name: "Los Angeles",
+          coords: [34.0522, -118.2437],
+          date: "June 30, 2024",
+          description: "Known for its Mediterranean climate, ethnic diversity, and the film and television industry.",
+          imageUrl: "https://www.tripsavvy.com/thmb/TGv3Pvlxxh6Pp4L0EoidtZMiOSI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/view-of-highway-and-city-skyline-at-dusk-los-angeles-california-usa-571752011-5792496d3df78c173487713b.jpg"
+        },
+        {
+          name: "Sunset Beach, Huntington Beach, CA",
+          coords: [33.717230, -118.072549],
+          date: "June 30, 2024",
+          description: "Sunset Beach is a Huntington Beach beachfront community in Orange County, California. It was established on September 8, 1904 and developed as a result of the 1920 discovery of oil in the Huntington Beach Oil Field.",
+          imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/05/Chicago_sunrise_1.jpg"
+        },
+        {
+          name: "Houston",
+          coords: [29.7604, -95.3698],
+          date: "June 5, 1837",
+          description: "The largest city in Texas, known for its space exploration contributions.",
+          imageUrl: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Downtown_Houston_skyline.jpg"
+        },
+        {
+          name: "Himalayan Grill Cuisine of India & Nepal (Waterfront)",
+          coords: [33.724365, -118.075655],
+          date: "June 30, 2024",
+          description: "Nepali Resturant.",
+          imageUrl: "https://www.himalayan-grill.com/admin/files/16516546600.webp"
+        },
+        {
+          name: "Masala Waves Indian and Nepali Cuisine",
+          coords: [33.69674, -117.98838],
+          date: "July 21, 2024",
+          description: "Nepali Resturant.",
+          imageUrl: "https://lh3.googleusercontent.com/p/AF1QipMjVkUy2UsSvndWDcq-5vjvIhSLv70fGz1DbON9=s680-w680-h510"
+        },
+        {
+          name: "Point Vicente Lighthouse",
+          coords: [33.742561, -118.410057],
+          date: "July 21, 2024",
+          description: "Point Vicente Lighthouse is a lighthouse in Rancho Palos Verdes, California, United States, north of Los Angeles Harbor.",
+          imageUrl: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Parlos_Verdes_Light_House_Aug_2012.JPG"
+        },
+        {
+          name: "Himalayan Restaurant",
+          coords: [34.243679,-116.911482],
+          date: "July 21, 2024",
+          description: "Nepali Resturant",
+          imageUrl: "https://www.google.com/maps/place/Himalayan+Restaurant/@34.2403682,-116.9114907,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOWevuBriLjqkRQcnDXuUAYpyBs9K16ZfS47Bs2!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOWevuBriLjqkRQcnDXuUAYpyBs9K16ZfS47Bs2%3Dw203-h270-k-no!7i3024!8i4032!4m7!3m6!1s0x80c4b396585676f5:0xfa295c3bb0eb61db!8m2!3d34.2403634!4d-116.9116917!10e5!16s%2Fg%2F1tfbt4r8?entry=ttu"
+        },
+        {
+          name: "Big Bear",
+          coords: [34.247949, -116.928210],
+          date: "June 30, 2024",
+          description: "Travel",
+          imageUrl: "https://www.google.com/maps/@34.247444,-116.940601,3a,75y,90t/data=!3m8!1e2!3m6!1sAF1QipOZ4Usa3L62_1kpxQhw5_obAN_nWohLqsaufu6h!2e10!3e12!6shttps:%2F%2Flh5.googleusercontent.com%2Fp%2FAF1QipOZ4Usa3L62_1kpxQhw5_obAN_nWohLqsaufu6h%3Dw203-h107-k-no!7i5184!8i2742?entry=ttu"
+        }
+      ];
+
+      // Loop through the places array and add markers to the map
+      places.forEach(place => {
+        // Create a marker for each place
+        const marker = L.marker(place.coords).addTo(map);
+
+        // Bind a popup to the marker with detailed information
+        marker.bindPopup(`
+          <div>
+            <h2>${place.name}</h2>
+            <p><strong>Date:</strong> ${place.date}</p>
+            <p>${place.description}</p>
+            <img src="${place.imageUrl}" alt="${place.name}" style="width:100%;height:auto;">
+          </div>
+        `);
+      });
+    </script>
+  </body>
+</html>
+

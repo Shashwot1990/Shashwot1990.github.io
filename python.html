@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Python Environment Setup Documentation">
+    <title>Python Environment Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f8f8f8;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f4f4f9;
+            padding: 5px;
+            border-radius: 4px;
+            font-family: Consolas, monospace;
+        }
+        pre {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            overflow-x: auto;
+            position: relative;
+        }
+        ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        ul li::before {
+            content: "•";
+            color: #4CAF50;
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .copy-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .copy-button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Python Environment Setup Documentation</h1>
+</header>
+
+<div class="container">
+    <h2>1. Creating a Python Virtual Environment Using <code>venv</code></h2>
+    <p><code>venv</code> is a built-in module in Python 3.3 and later, which allows you to create virtual environments. Here’s how to use it:</p>
+
+    <h3>Step 1: Install Python</h3>
+    <p>Download and install Python from <a href="https://www.python.org/downloads/">python.org</a>. Verify the installation:</p>
+    <pre><code>python --version</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 2: Create a Virtual Environment</h3>
+    <p>Navigate to your project directory and run:</p>
+    <pre><code>python -m venv &lt;env_name&gt;</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+    <p>Example:</p>
+    <pre><code>python -m venv myenv</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 3: Activate the Virtual Environment</h3>
+    <p>For Windows:</p>
+    <pre><code>.\myenv\Scripts\activate</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+    <p>For macOS/Linux:</p>
+    <pre><code>source myenv/bin/activate</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 4: Install Packages</h3>
+    <p>With the environment activated, install packages using <code>pip</code>:</p>
+    <pre><code>pip install &lt;package_name&gt;</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 5: Deactivate the Environment</h3>
+    <p>To deactivate the virtual environment:</p>
+    <pre><code>deactivate</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h2>2. Creating a Python Environment Using <code>conda</code></h2>
+
+    <h3>Step 1: Install Conda</h3>
+    <p>Download and install <a href="https://www.anaconda.com/products/distribution">Anaconda</a> or <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda</a>. Verify installation:</p>
+    <pre><code>conda --version</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 2: Create a New Conda Environment</h3>
+    <p>Run the following to create a conda environment:</p>
+    <pre><code>conda create --name &lt;env_name&gt; python=&lt;version&gt;</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+    <p>Example:</p>
+    <pre><code>conda create --name myenv python=3.9</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 3: Activate the Conda Environment</h3>
+    <pre><code>conda activate &lt;env_name&gt;</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 4: Install Packages</h3>
+    <p>Use <code>conda install</code> to install packages:</p>
+    <pre><code>conda install numpy</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 5: Deactivate the Conda Environment</h3>
+    <pre><code>conda deactivate</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 6: List Conda Environments</h3>
+    <pre><code>conda info --envs</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h3>Step 7: Remove a Conda Environment</h3>
+    <pre><code>conda remove --name &lt;env_name&gt; --all</code>
+    <button class="copy-button" onclick="copyToClipboard(this)">Copy</button></pre>
+
+    <h2>Key Differences Between <code>venv</code> and <code>conda</code></h2>
+    <table>
+        <tr>
+            <th>Feature</th>
+            <th><code>venv</code></th>
+            <th><code>conda</code></th>
+        </tr>
+        <tr>
+            <td>Python Version</td>
+            <td>Uses system-wide Python version</td>
+            <td>Can specify any Python version</td>
+        </tr>
+        <tr>
+            <td>Package Manager</td>
+            <td>Uses <code>pip</code></td>
+            <td>Uses <code>conda</code>, but can use <code>pip</code> too</td>
+        </tr>
+        <tr>
+            <td>Environment Size</td>
+            <td>Lightweight</td>
+            <td>Larger, manages dependencies</td>
+        </tr>
+        <tr>
+            <td>Cross-language Support</td>
+            <td>No</td>
+            <td>Yes (supports R, Java, etc.)</td>
+        </tr>
+        <tr>
+            <td>Dependency Management</td>
+            <td>Manual</td>
+            <td>Automatic conflict resolution</td>
+        </tr>
+    </table>
+</div>
+
+<footer>
+    <p>&copy; 2024 Python Environment Setup Documentation</p>
+</footer>
+
+<script>
+function copyToClipboard(button) {
+    const codeBlock = button.previousElementSibling;
+    const text = codeBlock.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Code copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
+</script>
+
+</body>
+</html>

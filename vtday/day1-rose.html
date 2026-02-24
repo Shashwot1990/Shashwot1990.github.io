@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 1 - Rose Day 🌹</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Noto+Sans+Devanagari:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { 
+      --rose-red: #d62839; 
+      --rose-pink: #ff6b9d; 
+      --cream: #fff5f7; 
+      --glass: rgba(255, 255, 255, 0.85);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body { 
+      font-family: 'Cormorant Garamond', serif; 
+      background: linear-gradient(135deg, #fff5f7 0%, #ffe4ec 100%); 
+      color: #2d1518; 
+      min-height: 100vh; 
+      overflow-x: hidden;
+    }
+
+    /* Falling Petals Animation */
+    .petal {
+      position: fixed;
+      top: -10%;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.8; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Password Screen - Enhanced Glassmorphism */
+    #password-screen { 
+      position: fixed; 
+      inset: 0; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      padding: 1.5rem; 
+      background: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png'), linear-gradient(135deg, var(--cream), #ffdae9);
+      z-index: 1000; 
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    #password-screen.hidden { transform: translateY(-100%); }
+
+    .password-card {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 3rem 2rem;
+      border-radius: 2rem;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(214, 40, 57, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      width: 100%;
+      max-width: 400px;
+      z-index: 2;
+    }
+
+    .password-title { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--rose-red); margin-bottom: 0.5rem; }
+
+    .password-input { 
+      width: 100%; 
+      height: 3.5rem; 
+      padding: 0 1rem; 
+      font-size: 1.1rem; 
+      text-align: center; 
+      border: 1.5px solid #ffc2d1; 
+      border-radius: 1rem; 
+      background: white; 
+      margin: 1.5rem 0;
+      transition: 0.3s;
+    }
+
+    .password-input:focus { outline: none; border-color: var(--rose-red); box-shadow: 0 0 15px rgba(214, 40, 57, 0.1); }
+
+    .password-btn { 
+      width: 100%; 
+      height: 3.5rem; 
+      font-family: 'Dancing Script', cursive; 
+      font-size: 1.5rem; 
+      background: linear-gradient(135deg, var(--rose-red), var(--rose-pink)); 
+      color: white; 
+      border: none; 
+      border-radius: 1rem; 
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(214, 40, 57, 0.3);
+      transition: 0.3s;
+    }
+    .password-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(214, 40, 57, 0.4); }
+
+    /* Content Area */
+    #content { opacity: 0; transition: 1s ease; padding-top: 5vh; }
+    #content.visible { opacity: 1; }
+
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; position: relative; z-index: 2; }
+
+    .back-button { 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 0.5rem; 
+      padding: 0.6rem 1.2rem; 
+      background: white; 
+      border: 1.5px solid var(--rose-pink); 
+      border-radius: 2rem; 
+      color: var(--rose-red); 
+      text-decoration: none; 
+      font-family: 'Dancing Script', cursive; 
+      font-size: 1.1rem; 
+      margin-bottom: 2rem;
+      transition: 0.3s;
+    }
+    .back-button:hover { background: var(--rose-red); color: white; }
+
+    header { text-align: center; margin-bottom: 4rem; }
+    .page-title { font-family: 'Dancing Script', cursive; font-size: 5rem; color: var(--rose-red); margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.05); }
+
+    .content-card { 
+      background: var(--glass); 
+      backdrop-filter: blur(15px); 
+      border-radius: 2rem; 
+      padding: 3rem; 
+      box-shadow: 0 15px 45px rgba(214, 40, 57, 0.1); 
+      border: 1px solid white;
+      position: relative;
+    }
+
+    .content-card::after {
+      content: '🌹';
+      position: absolute;
+      bottom: -20px;
+      right: 20px;
+      font-size: 3rem;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+    }
+
+    .message { font-size: 1.35rem; line-height: 2; text-align: center; color: #4a2c2c; }
+    
+    .nepali-text { font-family: 'Noto Sans Devanagari', sans-serif; font-weight: 500; color: var(--rose-red); font-size: 1.6rem; margin-bottom: 2rem; }
+
+    .signature { 
+      text-align: right; 
+      font-family: 'Dancing Script', cursive; 
+      font-size: 2rem; 
+      color: var(--rose-red); 
+      margin-top: 2rem; 
+      font-weight: bold;
+    }
+
+    @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+    .error { animation: shake 0.4s ease; border-color: red !important; }
+  </style>
+</head>
+<body>
+
+  <div id="password-screen">
+    <div class="password-card">
+      <div style="font-size: 4rem; margin-bottom: 1rem;">🌹</div>
+      <h1 class="password-title">Rose Day</h1>
+      <p style="font-style: italic; color: #888;">Enter the secret key to see your rose...</p>
+      <input type="password" class="password-input" id="password-input" placeholder="Password hint: My favourite flower">
+      <button class="password-btn" onclick="checkPassword()">Unlock the Magic 💕</button>
+    </div>
+  </div>
+  
+  <div id="content">
+    <div class="container">
+      <a href="valentine-mode.html" class="back-button">← Back to Love Portal</a>
+      <header>
+        <h1 class="page-title">Rose Day</h1>
+        <p class="nepali-text">गुलाबको दिन</p>
+      </header>
+      
+      <div class="content-card">
+        <div class="message">
+          <p class="nepali-text" style="margin-bottom: 1.5rem; font-size: 1.5rem;">
+            "मेरो प्यारो, जसरी गुलाब बगैंचामा फुल्छ, त्यसरी नै हाम्रो माया पनि खिलिरहेको छ। हरेक दिन तिमीसँग बिताउनु एउटा नयाँ फूलको खिल्नु हो। तिमी मेरो जीवनको सबैभन्दा सुन्दर गुलाब हौ।"
+          </p>
+          <hr style="border: none; border-top: 1px dashed var(--rose-pink); margin: 2rem auto; width: 50%;">
+          <p>
+            Like a rose that blossoms in a garden, our love continues to flourish with every passing moment. You are the most beautiful flower in my life, bringing color and fragrance to my world even on the greyest days.
+          </p>
+          <div class="signature"> 💕</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Create falling petals
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.innerHTML = '🌸'; // Petal emoji
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      petal.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      petal.style.opacity = Math.random();
+      document.body.appendChild(petal);
+
+      setTimeout(() => { petal.remove(); }, 10000);
+    }
+    setInterval(createPetal, 400);
+
+    // Password Check
+    const correctPassword = sessionStorage.getItem('dayPassword') || 'rose';
+    
+    function checkPassword() {
+      const input = document.getElementById('password-input');
+      if (input.value.toLowerCase() === correctPassword.toLowerCase()) {
+        document.getElementById('password-screen').classList.add('hidden');
+        document.getElementById('content').classList.add('visible');
+        document.body.style.overflowY = "auto";
+      } else {
+        input.classList.add('error');
+        setTimeout(() => input.classList.remove('error'), 500);
+        input.value = '';
+      }
+    }
+    
+    document.getElementById('password-input').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') checkPassword();
+    });
+  </script>
+</body>
+</html>

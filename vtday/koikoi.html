@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koi Koi Heart 💖 | Our Journey</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+Devanagari:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <style>
+    :root {
+      --primary: #e5678c;
+      --purple: #9b59b6;
+      --cream: #fef9f3;
+      --paper: #ffffff;
+      --muted: #7a6b70;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: linear-gradient(180deg, #fef1f4, #f3e4ec, #ece4f3);
+      color: #1a1215;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: fadeInDown 0.6s ease;
+    }
+    
+    .page-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(3rem, 8vw, 5rem);
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    
+    .nepali-subtitle {
+      font-family: 'Noto Sans Devanagari', sans-serif;
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .content-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(20px);
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      box-shadow: 0 10px 40px -10px rgba(229, 103, 140, 0.3);
+      margin-bottom: 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .section-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.5rem;
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    /* --- Countdown Styling --- */
+    .countdown-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+    }
+    
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .countdown-value {
+      width: 5rem;
+      height: 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      background: white;
+      border: 2px solid rgba(229, 103, 140, 0.2);
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      color: var(--purple);
+    }
+    
+    .countdown-label {
+      margin-top: 0.6rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* --- Memory Gallery (Polaroid Style) --- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .polaroid {
+      background: white;
+      padding: 1rem 1rem 3rem 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 0.2rem;
+      transition: transform 0.4s ease;
+      position: relative;
+    }
+
+    .polaroid:nth-child(even) { transform: rotate(2deg); }
+    .polaroid:nth-child(odd) { transform: rotate(-2deg); }
+
+    .polaroid:hover {
+      transform: rotate(0deg) scale(1.05);
+      z-index: 10;
+    }
+
+    .polaroid img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border: 1px solid #eee;
+    }
+
+    .polaroid-caption {
+      position: absolute;
+      bottom: 0.8rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: #444;
+    }
+
+    /* --- Map Styling --- */
+    .map-container {
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 40px -10px rgba(0,0,0,0.3);
+      height: 450px;
+      border: 4px solid white;
+    }
+    
+    #map { width: 100%; height: 100%; }
+
+    .map-heart-icon {
+      font-size: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: heartbeat 1s infinite;
+      filter: drop-shadow(0 0 5px white);
+    }
+
+    .custom-popup .leaflet-popup-content-wrapper {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      padding: 5px;
+    }
+
+    .popup-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 10px;
+      border: 2px solid var(--primary);
+    }
+
+    /* --- Button Styling --- */
+    .valentine-mode-btn {
+      display: block;
+      margin: 4rem auto;
+      padding: 1.5rem 3.5rem;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, var(--primary), var(--purple));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(229, 103, 140, 0.4);
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    .valentine-mode-btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(229, 103, 140, 0.6);
+    }
+
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div style="font-size: 3.5rem; margin-bottom: 1rem; animation: heartbeat 1.5s infinite;">💖</div>
+      <h1 class="page-title">Koi Koi Heart</h1>
+      <p class="nepali-subtitle">मायाको मुटु</p>
+      <p style="font-style: italic; color: #777;">"In a world of billions, my heart chose you."</p>
+    </header>
+    
+    <div class="content-card">
+      <h3 class="section-title">Together For</h3>
+      <div class="countdown-grid" id="countdown"></div>
+      <p style="text-align: center; margin-top: 2rem; font-style: italic; color: #888;">
+        Since September 14, 2024 • 7:30 PM
+      </p>
+    </div>
+    
+    <div class="content-card">
+      <h3 class="section-title">Our Memories</h3>
+      <div class="gallery-grid">
+        <div class="polaroid">
+          <img src="img/us.jpeg" alt="US">
+          <div class="polaroid-caption">US 📸</div>
+        </div>
+        <div class="polaroid">
+          <img src="img/special.jpeg" alt="That Special Moment">
+          <div class="polaroid-caption">That Special Moment 💕</div>
+        </div>
+        <div class="polaroid">
+          <img src="img/together.jpeg" alt="Together">
+          <div class="polaroid-caption">Together 🌹</div>
+        </div>
+        <div class="polaroid">
+          <img src="img/memories.jpeg" alt="Making Memories">
+          <div class="polaroid-caption">Making Memories ✨</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="content-card">
+      <h3 class="section-title">Where It All Began</h3>
+      <div class="map-container">
+        <div id="map"></div>
+      </div>
+    </div>
+    
+    <button class="valentine-mode-btn" onclick="goToValentineMode()">
+      💕 Enter Valentine Mode 💕
+    </button>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // --- Timer Logic ---
+    const startDate = new Date('2024-09-14T19:30:00');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = now - startDate;
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 365);
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+      
+      const data = [
+        { val: years, label: 'Years' },
+        { val: days, label: 'Days' },
+        { val: hours, label: 'Hours' },
+        { val: minutes, label: 'Mins' },
+        { val: seconds, label: 'Secs' }
+      ];
+      
+      document.getElementById('countdown').innerHTML = data.map(item => `
+        <div class="countdown-item">
+          <div class="countdown-value">${String(item.val).padStart(2, '0')}</div>
+          <span class="countdown-label">${item.label}</span>
+        </div>
+      `).join('');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // --- Map Logic ---
+    const startCoords = [46.7207839, -117.0177234];
+    
+    // Set to 15 (less zoomed in). Max possible is usually 19 for Esri.
+    const map = L.map('map', { scrollWheelZoom: false }).setView(startCoords, 15);
+    
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri &mdash; Source: Esri'
+    }).addTo(map);
+    
+    const pulsingHeart = L.divIcon({
+      className: 'custom-heart-icon',
+      html: `<div class="map-heart-icon">💖</div>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 20]
+    });
+    
+    L.marker(startCoords, { icon: pulsingHeart }).addTo(map)
+      .bindPopup(`
+        <div style="text-align:center;" class="custom-popup">
+          <img src="img/location.jpeg" alt="Our Spot" class="popup-img">
+          <br>
+          <b style='font-family:Dancing Script; font-size:1.4rem; color:#e5678c;'>Our Starting Point</b><br>
+          <span style="font-family:serif; color:#444;">September 14, 2024</span>
+        </div>
+      `, { maxWidth: 200 })
+      .openPopup();
+
+    function goToValentineMode() {
+      window.location.href = 'valentine-mode.html';
+    }
+  </script>
+</body>
+</html>

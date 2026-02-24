@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Geo-Locate</title>
+  <link rel="icon" type="image/jpg" href="src/images/geolocate.jpeg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #0078d4;
+      text-align: center;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    input[type="file"], button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    #map {
+      height: 400px;
+      margin-top: 20px;
+      border: 2px solid #0078d4;
+      border-radius: 8px;
+    }
+    .details-container {
+      margin-top: 20px;
+      background: #e9f5ff;
+      border-radius: 8px;
+      padding: 20px;
+    }
+    .details {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .details img {
+      max-width: 120px;
+      border-radius: 4px;
+    }
+    .no-geo {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Geo-Locate</h1>
+  <div class="container">
+    <input type="file" id="upload" accept="image/*" multiple>
+    <button onclick="uploadImages()">Upload</button>
+    <button onclick="downloadCombinedCSV()">Download Combined CSV</button>
+    <div id="map"></div>
+    <div id="details-container" class="details-container"></div>
+  </div>
+
+<script>
+let map;
+const imageDetails = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  map = L.map('map').setView([39.8283, -98.5795], 4); // Centered on USA
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+});
+
+function uploadImages() {
+  const files = document.getElementById('upload').files;
+  const container = document.getElementById('details-container');
+  container.innerHTML = '';
+  imageDetails.length = 0;
+  map.eachLayer((layer) => {
+    if (layer instanceof L.Marker) map.removeLayer(layer);
+  });
+
+  if (!files.length) return alert('Please select images.');
+
+  for (const file of files) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const base64Image = e.target.result;
+
+      EXIF.getData(file, function() {
+        const lat = EXIF.getTag(this, "GPSLatitude");
+        const lon = EXIF.getTag(this, "GPSLongitude");
+        const latRef = EXIF.getTag(this, "GPSLatitudeRef");
+        const lonRef = EXIF.getTag(this, "GPSLongitudeRef");
+        const exifData = getExif(this);
+
+        if (lat && lon && latRef && lonRef) {
+          const latitude = toDecimal(lat, latRef);
+          const longitude = toDecimal(lon, lonRef);
+          const idx = imageDetails.length;
+          imageDetails.push({ fileName: file.name, latitude, longitude, address: 'Loading...', base64Image, ...exifData });
+
+          const marker = L.marker([latitude, longitude]).addTo(map);
+          marker.bindPopup(`<img src="${base64Image}" style="width:150px;">`);
+          marker.on('click', () => map.setView([latitude, longitude], 18));
+          reverseGeocode(latitude, longitude, idx);
+          showDetails(file.name, base64Image, latitude, longitude, exifData, idx);
+        } else {
+          showDetails(file.name, base64Image, null, null, exifData, -1);
+        }
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function getExif(file) {
+  return {
+    Make: EXIF.getTag(file, "Make"),
+    Model: EXIF.getTag(file, "Model"),
+    DateTime: EXIF.getTag(file, "DateTime"),
+    Software: EXIF.getTag(file, "Software"),
+    Orientation: EXIF.getTag(file, "Orientation"),
+    ExposureTime: EXIF.getTag(file, "ExposureTime"),
+    FNumber: EXIF.getTag(file, "FNumber"),
+    ISOSpeedRatings: EXIF.getTag(file, "ISOSpeedRatings"),
+    FocalLength: EXIF.getTag(file, "FocalLength"),
+    GPSAltitude: EXIF.getTag(file, "GPSAltitude"),
+    GPSSpeed: EXIF.getTag(file, "GPSSpeed"),
+    GPSDateStamp: EXIF.getTag(file, "GPSDateStamp")
+  };
+}
+
+function toDecimal(coord, ref) {
+  let dec = coord[0] + coord[1]/60 + coord[2]/3600;
+  return (ref === 'S' || ref === 'W') ? -dec : dec;
+}
+
+function reverseGeocode(lat, lon, index) {
+  axios.get(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location=${lon},${lat}&f=json`)
+    .then(res => {
+      const addr = res.data.address.LongLabel;
+      imageDetails[index].address = addr;
+      document.getElementById(`addr-${index}`).textContent = addr;
+    }).catch(err => console.error('Reverse geocode failed', err));
+}
+
+function showDetails(name, img, lat, lon, exif, index) {
+  const container = document.getElementById('details-container');
+  const div = document.createElement('div');
+  div.className = 'details';
+  div.innerHTML = `
+    <img src="${img}" alt="${name}">
+    <div>
+      <h3>${name}</h3>
+      ${lat !== null ? `<p><strong>Lat:</strong> ${lat}</p><p><strong>Lon:</strong> ${lon}</p><p><strong>Address:</strong> <span id="addr-${index}">Loading...</span></p>` : `<p class="no-geo">No geolocation data available.</p>`}
+      <p><strong>Make:</strong> ${exif.Make || 'N/A'}</p>
+      <p><strong>Model:</strong> ${exif.Model || 'N/A'}</p>
+      <p><strong>Date:</strong> ${exif.DateTime || 'N/A'}</p>
+      ${lat !== null ? `<button onclick="map.setView([${lat}, ${lon}], 18)">Take Me to Map</button>` : ''}
+    </div>
+  `;
+  container.appendChild(div);
+}
+
+function downloadCombinedCSV() {
+  if (!imageDetails.length) return alert('No data to export.');
+  const headers = "File Name,Latitude,Longitude,Address,Make,Model,DateTime\n";
+  const rows = imageDetails.map(d =>
+    `"${d.fileName}",${d.latitude || ''},${d.longitude || ''},"${(d.address || '').replace(/"/g, '""')}","${d.Make || ''}","${d.Model || ''}","${d.DateTime || ''}"`
+  ).join("\n");
+  const blob = new Blob([headers + rows], { type: 'text/csv;charset=utf-8;' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'geo_locate_output.csv';
+  link.click();
+}
+</script>
+</body>
+</html>
