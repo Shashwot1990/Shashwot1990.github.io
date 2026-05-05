@@ -1202,6 +1202,245 @@
             opacity: 1;
             transform: scale(1);
         }
+        /* Hero Photo */
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            animation: slideInRight 1s ease;
+        }
+
+        .hero-photo-wrapper {
+            position: relative;
+            width: 280px;
+            height: 280px;
+        }
+
+        .hero-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-photo-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px dashed var(--primary-color);
+            opacity: 0.5;
+            animation: spin 12s linear infinite;
+        }
+
+        /* Education Section */
+        .education {
+            padding: 5rem 5%;
+            background: var(--dark-bg);
+        }
+
+        .education-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .education-card {
+            display: flex;
+            gap: 2.5rem;
+            align-items: flex-start;
+            background: var(--light-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            border-left: 5px solid var(--primary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .education-logo {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .education-details h3 {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-school {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .education-location {
+            color: var(--text-dark);
+            font-weight: 400;
+            margin-left: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .education-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .education-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .edu-tag {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--text-light);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .edu-tag i {
+            color: var(--accent);
+            font-size: 0.75rem;
+        }
+
+        .education-desc {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Campus Life Section */
+        .campus-life {
+            padding: 5rem 5%;
+            background: var(--dark-bg);
+        }
+
+        .campus-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .campus-subtitle {
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .campus-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto auto;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .campus-photo {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .campus-photo.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: 1;
+        }
+
+        .campus-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        .campus-photo:hover img {
+            transform: scale(1.08);
+        }
+
+        .campus-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .campus-photo:hover .campus-overlay {
+            opacity: 1;
+        }
+
+        .campus-overlay span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .campus-note {
+            margin-top: 1.5rem;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        /* Responsive additions */
+        @media (max-width: 768px) {
+            .hero-photo-wrapper {
+                width: 200px;
+                height: 200px;
+            }
+            .hero-photo {
+                width: 200px;
+                height: 200px;
+            }
+            .hero-photo-ring {
+                width: 220px;
+                height: 220px;
+            }
+            .education-card {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .campus-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .campus-photo.large {
+                grid-column: span 2;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1224,8 +1463,10 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#education">Education</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
+                <li><a href="#campus-life">Campus Life</a></li>
                 <li><a href="#leadership">Leadership</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#achievements">Achievements</a></li>
@@ -1256,20 +1497,27 @@
                     <a href="#projects" class="btn btn-secondary">View Projects</a>
                 </div>
             </div>
-            <div class="hero-socials">
-                <a href="https://github.com/Physic1990/" class="social-link" target="_blank">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="mailto:niraulashashwot@gmail.com" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/shashwot-niraula-469862213/" class="social-link" target="_blank">
-                    <i class="fab fa-linkedin"></i>
-                </a>
+            <div class="hero-right">
+                <div class="hero-photo-wrapper">
+                    <img src="src/images/headshot1.jpg" alt="Shashwot Niraula" class="hero-photo">
+                    <div class="hero-photo-ring"></div>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://github.com/Physic1990/" class="social-link" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:niraulashashwot@gmail.com" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/shashwot-niraula-469862213/" class="social-link" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- About Section (moved after hero) -->
     <!-- About Section -->
     <section class="about fade-in" id="about">
         <div class="section-content">
@@ -1280,6 +1528,31 @@
             </div>
             <div class="about-image slide-in-right">
                 <img src="src/images/headshot1.jpg" alt="Shashwot Niraula">
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section class="education fade-in" id="education">
+        <div class="education-container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-card slide-in-left">
+                <div class="education-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="education-details">
+                    <h3>Bachelor of Science — Computer Science</h3>
+                    <p class="education-school">University of Idaho <span class="education-location"><i class="fas fa-map-marker-alt"></i> Moscow, ID</span></p>
+                    <p class="education-date"><i class="fas fa-calendar-alt"></i> August 2021 – May 2025</p>
+                    <div class="education-highlights">
+                        <span class="edu-tag"><i class="fas fa-star"></i> Outstanding Senior Award</span>
+                        <span class="edu-tag"><i class="fas fa-star"></i> 3.0+ GPA</span>
+                        <span class="edu-tag"><i class="fas fa-users"></i> NSA President</span>
+                        <span class="edu-tag"><i class="fas fa-globe"></i> International Ambassador</span>
+                        <span class="edu-tag"><i class="fas fa-rocket"></i> NASA Balloon Project</span>
+                    </div>
+                    <p class="education-desc">Four transformative years at U of I where I grew as an engineer, leader, and community builder — from tutoring 1,000+ students to representing Nepal on campus, launching weather balloons for NASA, and earning multiple senior awards.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1345,6 +1618,8 @@
                         <span class="skill-tag">Cricket</span>
                         <span class="skill-tag">Tennis</span>
                         <span class="skill-tag">Cultural Events</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1412,8 +1687,6 @@
       </div>
     </div>
   </section>
-  
-    </section>
 
     <!-- Leadership Section -->
     <section class="leadership fade-in" id="leadership">
@@ -1445,6 +1718,73 @@
                     <p>Organizing events to bridge cultures, including traditional performances and authentic cuisine experiences. Creating connections between international and domestic students.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Campus Life Section -->
+    <section class="campus-life fade-in" id="campus-life">
+        <div class="campus-container">
+            <h2 class="section-title">Undergrad Life @ U of I</h2>
+            <p class="campus-subtitle">Four years of memories, friendships, and growth in Moscow, Idaho</p>
+            <div class="campus-grid">
+                <!-- Replace src with your actual photos -->
+                <div class="campus-photo large scale-in">
+                    <img src="src/images/headshot1.jpg" alt="Shashwot at University of Idaho">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-camera"></i> University of Idaho</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with your Taste of Nepal photo -->
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop" alt="Taste of Nepal Event">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-utensils"></i> Taste of Nepal</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with your NASA balloon launch photo -->
+                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&h=300&fit=crop" alt="NASA Eclipse Balloon">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-rocket"></i> NASA Balloon Launch</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with your campus/Moscow photo -->
+                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop" alt="Campus Life">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-university"></i> Campus Life</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with a hiking/outdoor photo -->
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=300&fit=crop" alt="Hiking Adventures">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-mountain"></i> Idaho Adventures</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with a sports/soccer photo -->
+                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=300&fit=crop" alt="Sports & Activities">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-futbol"></i> Soccer & Sports</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with cultural event photo -->
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=300&fit=crop" alt="Cultural Events">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-music"></i> Cultural Events</span>
+                    </div>
+                </div>
+                <div class="campus-photo scale-in">
+                    <!-- Replace with friends/group photo -->
+                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop" alt="Friends & Community">
+                    <div class="campus-overlay">
+                        <span><i class="fas fa-heart"></i> Community & Friends</span>
+                    </div>
+                </div>
+            </div>
+            <p class="campus-note"><i class="fas fa-info-circle"></i> Replace the placeholder images above with your real photos to personalize this section.</p>
         </div>
     </section>
 
