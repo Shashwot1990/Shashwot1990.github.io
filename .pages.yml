@@ -1,0 +1,83 @@
+# Pages CMS configuration — https://pagescms.org
+# Admin UI: https://app.pagescms.org  (sign in with GitHub, pick this repo)
+
+media:
+  input: src/images/uploads          # where uploaded files are committed
+  output: src/images/uploads         # path written into the JSON (site is served from repo root)
+  extensions: [jpg, jpeg, png, webp, gif, svg]
+
+content:
+  - name: campus
+    label: Campus Life photos
+    type: file
+    path: src/data/campus.json
+    fields:
+      - name: photos
+        label: Photos
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Photo
+            type: image
+          - name: caption
+            label: Caption (shown on hover)
+            type: string
+          - name: icon
+            label: Icon
+            type: string
+            description: "Font Awesome class, e.g. fa-camera, fa-rocket, fa-utensils, fa-mountain, fa-music, fa-heart"
+            default: fa-camera
+          - name: large
+            label: Feature as large tile
+            type: boolean
+            default: false
+
+  - name: projects
+    label: Projects
+    type: file
+    path: src/data/projects.json
+    fields:
+      - name: projects
+        label: Projects
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: Title
+            type: string
+          - name: image
+            label: Screenshot / image
+            type: image
+          - name: category
+            label: Category (used by the filter buttons)
+            type: select
+            options:
+              values: [web, ml, gis, mobile, game]
+          - name: tags
+            label: Tech tags
+            type: string
+            list: true
+          - name: description
+            label: Description
+            type: text
+          - name: links
+            label: Links
+            type: object
+            list: true
+            fields:
+              - name: label
+                label: Link text
+                type: string
+                default: View Code
+              - name: url
+                label: URL (or a local page like geolocate.html)
+                type: string
+              - name: icon
+                label: Icon
+                type: string
+                default: fa-github
+              - name: brand
+                label: Brand icon (fab)? Turn on for GitHub/LinkedIn etc.
+                type: boolean
+                default: true

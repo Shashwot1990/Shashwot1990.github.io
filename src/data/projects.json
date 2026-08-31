@@ -1,0 +1,94 @@
+{
+  "projects": [
+    {
+      "title": "HSA Vault",
+      "image": "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop",
+      "category": "web",
+      "tags": ["React", "TypeScript", "Supabase", "Claude API"],
+      "description": "Full-stack medical expense tracker with AI-powered receipt scanning via the Claude API — categorizes expenses and extracts totals from uploaded receipts.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Lightcast Consulting Cloud",
+      "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop",
+      "category": "web",
+      "tags": ["FastAPI", "React", "AWS"],
+      "description": "Hybrid cloud-local automation platform built as a year-long senior capstone for a real external client; cut client data-processing time by 60%. Served as technical team lead.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Touris",
+      "image": "https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop",
+      "category": "mobile",
+      "tags": ["SwiftUI", "ArcGIS Maps SDK for Swift", "ArcGIS Online"],
+      "description": "SwiftUI travel planner built on the ArcGIS Maps SDK for Swift and ArcGIS Online — plan routes, save points of interest, and explore destinations on an interactive map.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Stock Alert System",
+      "image": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop",
+      "category": "web",
+      "tags": ["Python", "API", "Automation"],
+      "description": "A Python script that tracks stock prices and sends email notifications when prices reach specified thresholds.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/Stock_Alert", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Airport Flight Display System",
+      "image": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop",
+      "category": "web",
+      "tags": ["React", "Node.js", "Cassandra"],
+      "description": "Full-stack application using React, Node.js, and Datastax Astra DB for real-time flight information display.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/Airport-Flight-Display-System", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Virtual Office in the Cloud",
+      "image": "https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop",
+      "category": "web",
+      "tags": ["Cloud", "Collaboration", "Security"],
+      "description": "Modern web-based document management system for secure creation, sharing, and updating of digital documents.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/ConnerWiench/VOiC", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Music Analysis using ML",
+      "image": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop",
+      "category": "ml",
+      "tags": ["Machine Learning", "Python", "Data Analysis"],
+      "description": "Machine Learning project analyzing Spotify and YouTube data to provide personalized song recommendations.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/Spotify-and-YouTube-Analysis-using-Machine-Learning-Algorithms", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Pong Game",
+      "image": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=300&fit=crop",
+      "category": "game",
+      "tags": ["Unity", "C#", "Game Dev"],
+      "description": "Classic Pong arcade game recreated in Unity with C#, featuring smooth gameplay and retro aesthetics.",
+      "links": [
+        { "label": "View Code", "url": "https://github.com/Physic1990/Pong", "icon": "fa-github", "brand": true }
+      ]
+    },
+    {
+      "title": "Geo-Locate",
+      "image": "https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=300&fit=crop",
+      "category": "gis",
+      "tags": ["JavaScript", "EXIF.js", "Leaflet.js", "ArcGIS Geocode API"],
+      "description": "Geolocation web app that extracts EXIF coordinates from uploaded images and plots them with Leaflet.js, with reverse geocoding via the ArcGIS Geocode API.",
+      "links": [
+        { "label": "Live Demo", "url": "geolocate.html", "icon": "fa-external-link-alt", "brand": false }
+      ]
+    }
+  ]
+}

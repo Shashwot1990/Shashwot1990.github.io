@@ -4,8 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shashwot Niraula - Portfolio</title>
-    
+    <title>Shashwot Niraula — Geospatial Application Developer &amp; Analyst</title>
+    <meta name="description" content="Shashwot Niraula is a Geospatial Application Developer & Analyst at WSP USA, building full-stack GIS and AI-powered mapping tools across the Esri ArcGIS ecosystem for state and municipal government clients.">
+    <meta name="author" content="Shashwot Niraula">
+    <link rel="canonical" href="https://shashwot1990.github.io/">
+
+    <!-- Favicon (inline SVG monogram) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23667eea'/%3E%3Cstop offset='1' stop-color='%23764ba2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='43' font-family='Arial,Helvetica,sans-serif' font-size='30' font-weight='700' fill='%23fff' text-anchor='middle'%3ESN%3C/text%3E%3C/svg%3E">
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shashwot1990.github.io/">
+    <meta property="og:title" content="Shashwot Niraula — Geospatial Application Developer & Analyst">
+    <meta property="og:description" content="Full-stack GIS and AI-powered mapping tools across the Esri ArcGIS ecosystem for state and municipal government clients.">
+    <meta property="og:image" content="https://shashwot1990.github.io/src/images/headshot1.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shashwot Niraula — Geospatial Application Developer & Analyst">
+    <meta name="twitter:description" content="Full-stack GIS and AI-powered mapping tools across the Esri ArcGIS ecosystem for state and municipal government clients.">
+    <meta name="twitter:image" content="https://shashwot1990.github.io/src/images/headshot1.jpg">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
@@ -1036,6 +1053,7 @@
             height: 50px;
             background: var(--primary-color);
             color: white;
+            border: none;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -1441,6 +1459,33 @@
                 grid-column: span 2;
             }
         }
+
+        /* Keyboard focus visibility */
+        a:focus-visible,
+        button:focus-visible,
+        .filter-btn:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Respect users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .hero-photo-ring,
+            .shape,
+            .cursor,
+            .cursor-follower {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1473,7 +1518,7 @@
                 <li><a href="#blog">Blog</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
         </nav>
@@ -1490,8 +1535,7 @@
                             <div class="hero-text">
                 <h1>Shashwot Niraula</h1>
                 <div class="typing-effect" id="typing"></div>
-                <p>Software Developer/Analyst
-                </p>
+                <p>Geospatial Application Developer &amp; Analyst — building full-stack GIS and AI-powered mapping tools for government clients.</p>
                 <div class="hero-buttons">
                     <a href="#about" class="btn btn-primary">About Me</a>
                     <a href="#projects" class="btn btn-secondary">View Projects</a>
@@ -1503,14 +1547,14 @@
                     <div class="hero-photo-ring"></div>
                 </div>
                 <div class="hero-socials">
-                    <a href="https://github.com/Physic1990/" class="social-link" target="_blank">
-                        <i class="fab fa-github"></i>
+                    <a href="https://github.com/Physic1990/" class="social-link" target="_blank" rel="noopener" aria-label="GitHub profile">
+                        <i class="fab fa-github" aria-hidden="true"></i>
                     </a>
-                    <a href="mailto:niraulashashwot@gmail.com" class="social-link">
-                        <i class="fas fa-envelope"></i>
+                    <a href="mailto:niraulashashwot@gmail.com" class="social-link" aria-label="Email Shashwot">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/shashwot-niraula-469862213/" class="social-link" target="_blank">
-                        <i class="fab fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/shashwot-niraula-469862213/" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+                        <i class="fab fa-linkedin" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
@@ -1523,8 +1567,9 @@
         <div class="section-content">
             <div class="about-text slide-in-left">
                 <h2 class="section-title">About Me</h2>
-                <p>Hello! I'm Shashwot Niraula, currently working as a Geospatial Software Developer/Analyst at WSP, I'm passionate about bridging the gap between Computer Science and Geographic Information Systems(GIS). I've built a robust foundation in programming and am continually exploring emerging technologies.</p>
-                <p>Beyond academics and work, I'm an avid explorer who loves hiking in pristine landscapes, playing soccer and tennis, and occasionally indulging in cooking. My multicultural background allows me to speak English, Nepali, and Hindi fluently.</p>
+                <p>Hello! I'm Shashwot Niraula, a Geospatial Application Developer &amp; Analyst at WSP USA. I build, deploy, and maintain GIS software across the Esri ArcGIS ecosystem — Experience Builder, ArcGIS Online/Enterprise, Survey123, ArcGIS Dashboards, and ArcPy automation — working directly with state and municipal government clients.</p>
+                <p>Right now I own the expansion of a cloud-based geospatial asset inventory platform across the Esri suite: designing new features, consolidating data across many asset classes, and establishing the application architecture and standards my teammates build against. I pair a Computer Science degree with academic certificates in GIS and AI/ML to deliver full-stack geospatial applications, relational-database-backed data pipelines, and AI-powered mapping tools.</p>
+                <p>Beyond work, I'm an avid explorer who loves hiking in pristine landscapes, playing soccer and tennis, and occasionally indulging in cooking. My multicultural background lets me speak English, Nepali, and Hindi fluently.</p>
             </div>
             <div class="about-image slide-in-right">
                 <img src="src/images/headshot1.jpg" alt="Shashwot Niraula">
@@ -1543,14 +1588,19 @@
                 <div class="education-details">
                     <h3>Bachelor of Science — Computer Science</h3>
                     <p class="education-school">University of Idaho <span class="education-location"><i class="fas fa-map-marker-alt"></i> Moscow, ID</span></p>
-                    <p class="education-date"><i class="fas fa-calendar-alt"></i> August 2021 – May 2025</p>
+                    <p class="education-date"><i class="fas fa-calendar-alt"></i> August 2021 – May 2025 &nbsp;·&nbsp; Academic Certificates in GIS and AI/ML</p>
                     <div class="education-highlights">
+                        <span class="edu-tag"><i class="fas fa-certificate"></i> GIS Certificate</span>
+                        <span class="edu-tag"><i class="fas fa-certificate"></i> AI/ML Certificate</span>
                         <span class="edu-tag"><i class="fas fa-star"></i> Outstanding Senior Award</span>
-                        <span class="edu-tag"><i class="fas fa-star"></i> 3.0+ GPA</span>
+                        <span class="edu-tag"><i class="fas fa-trophy"></i> Guy &amp; Grace Wicks Award</span>
+                        <span class="edu-tag"><i class="fas fa-medal"></i> 2024 Alumni Award for Excellence</span>
                         <span class="edu-tag"><i class="fas fa-users"></i> NSA President</span>
                         <span class="edu-tag"><i class="fas fa-globe"></i> International Ambassador</span>
                         <span class="edu-tag"><i class="fas fa-rocket"></i> NASA Balloon Project</span>
                     </div>
+                    <p class="education-desc"><strong>Relevant coursework:</strong> Machine Learning, Deep Learning, GIS Programming, Remote Sensing / GIS Image Analysis, Intermediate GIS, Introduction to Web GIS, Software Engineering, Database Systems.</p>
+                    <p class="education-desc"><strong>Honors &amp; awards:</strong> Donald R. &amp; Cora E. Theophilus Award, Outstanding Senior Award, Guy &amp; Grace Wicks Award, 2024 Alumni Award for Excellence, Alton Campbell Community Impact Award, Anjum Sadiq Memorial Scholarship, and MLK Art &amp; Writing Contest Winner.</p>
                     <p class="education-desc">Four transformative years at U of I where I grew as an engineer, leader, and community builder — from tutoring 1,000+ students to representing Nepal on campus, launching weather balloons for NASA, and earning multiple senior awards.</p>
                 </div>
             </div>
@@ -1566,50 +1616,77 @@
                     <h3><i class="fas fa-code"></i> Programming Languages</h3>
                     <div class="skill-list">
                         <span class="skill-tag">Python</span>
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">JavaScript/TypeScript</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">SQL</span>
                         <span class="skill-tag">C/C++</span>
                         <span class="skill-tag">C#</span>
-                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Java</span>
                         <span class="skill-tag">HTML/CSS</span>
                     </div>
                 </div>
                 <div class="skill-category scale-in">
-                    <h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
+                    <h3><i class="fas fa-map"></i> Geospatial &amp; ArcGIS</h3>
                     <div class="skill-list">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Django</span>
-                        <span class="skill-tag">Unity</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">ArcGIS Pro</span>
+                        <span class="skill-tag">ArcGIS Online/Enterprise</span>
+                        <span class="skill-tag">ArcGIS SDK</span>
+                        <span class="skill-tag">Experience Builder</span>
+                        <span class="skill-tag">ArcPy</span>
+                        <span class="skill-tag">Survey123</span>
+                        <span class="skill-tag">ArcGIS Dashboards</span>
+                        <span class="skill-tag">QGIS</span>
+                        <span class="skill-tag">PostGIS</span>
+                        <span class="skill-tag">GeoPandas</span>
+                        <span class="skill-tag">Leaflet.js</span>
+                        <span class="skill-tag">Google Earth Engine</span>
                     </div>
                 </div>
                 <div class="skill-category scale-in">
-                    <h3><i class="fas fa-database"></i> Databases & Cloud</h3>
+                    <h3><i class="fas fa-brain"></i> AI / Machine Learning</h3>
                     <div class="skill-list">
-                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">Llama</span>
+                        <span class="skill-tag">Mistral</span>
+                        <span class="skill-tag">Scikit-learn</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">LiDAR ML Pipelines</span>
+                        <span class="skill-tag">Time-Series Forecasting</span>
+                    </div>
+                </div>
+                <div class="skill-category scale-in">
+                    <h3><i class="fas fa-cloud"></i> Platforms &amp; Cloud</h3>
+                    <div class="skill-list">
+                        <span class="skill-tag">AWS (S3, EC2, CloudFront, Beanstalk)</span>
+                        <span class="skill-tag">Google Cloud</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+                <div class="skill-category scale-in">
+                    <h3><i class="fas fa-database"></i> Databases</h3>
+                    <div class="skill-list">
                         <span class="skill-tag">PostgreSQL</span>
                         <span class="skill-tag">MySQL</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">Google Cloud</span>
+                        <span class="skill-tag">MongoDB</span>
                     </div>
                 </div>
                 <div class="skill-category scale-in">
-                    <h3><i class="fas fa-map"></i> GIS & Specialized</h3>
+                    <h3><i class="fas fa-language"></i> Languages Spoken</h3>
                     <div class="skill-list">
-                        <span class="skill-tag">ArcGIS Online</span>
-                        <span class="skill-tag">QGIS</span>
-                        <span class="skill-tag">Google Earth Engine</span>
-                        <span class="skill-tag">ArcGIS Pro</span>
-                        <span class="skill-tag">Experience Builder</span>
-                        <span class="skill-tag">ArcGIS Dashboard</span>
-                        <span class="skill-tag">Survey123</span>
-                        <span class="skill-tag">ArcGIS Enterprise</span>
+                        <span class="skill-tag">English</span>
+                        <span class="skill-tag">Nepali</span>
+                        <span class="skill-tag">Hindi</span>
                     </div>
                 </div>
                 <div class="skill-category scale-in">
-                    <h3><i class="fas fa-heart"></i> Interests & Hobbies</h3>
+                    <h3><i class="fas fa-heart"></i> Interests &amp; Hobbies</h3>
                     <div class="skill-list">
                         <span class="skill-tag">Soccer</span>
                         <span class="skill-tag">Hiking</span>
@@ -1631,56 +1708,64 @@
       <div class="timeline">
   
         <div class="timeline-item slide-in-left">
-          <div class="timeline-date">2024 - Present</div>
-          <h3 class="timeline-title">GIS Software Developer / Analyst</h3>
+          <div class="timeline-date">Oct 2024 – Present</div>
+          <h3 class="timeline-title">Geospatial Application Developer / Analyst</h3>
           <p class="timeline-company">WSP USA (Boise, ID)</p>
           <p class="timeline-description">
-            Developed GIS applications using ArcGIS Pro and Experience Builder; automated spatial workflows with Python and ArcPy; designed Survey123 forms; and many more.
+            Build and maintain geospatial applications and automated data pipelines with Python, SQL, ArcGIS Pro/Enterprise, and Experience Builder (React/JavaScript) for transportation, asset-management, and emergency-response systems.
+            Own the expansion of a cloud-based GIS asset inventory platform across Experience Builder, Survey123, ArcGIS Dashboards, and ArcGIS Online/Enterprise — consolidating many asset classes into unified, quality-controlled systems for state government clients.
+            Built a Meta Llama–powered conversational AI widget in Experience Builder for natural-language map commands (e.g., "zoom to evacuation zone", "summarize assets in this area").
+            Implement ML workflows for LiDAR lane extraction and connected-vehicle data processing; coordinate priorities and schedules across engineering, civil/traffic, and GIS teams; document client requirements for RFP/RFI proposals; and present demos to clients and stakeholders.
           </p>
         </div>
-  
+
         <div class="timeline-item slide-in-right">
-          <div class="timeline-date">2024</div>
+          <div class="timeline-date">May 2024 – Aug 2024</div>
           <h3 class="timeline-title">Software Product Intern</h3>
-          <p class="timeline-company">Esri (Redlands, CA)</p>
+          <p class="timeline-company">Esri Inc. (Redlands, CA)</p>
           <p class="timeline-description">
-            Improved open-source contributions and ArcGIS Python API resources in Google Colab, driving developer adoption.
+            Led technical outreach for Esri's developer community; built training resources and contributed to open-source projects.
+            Authored Python scripts, tutorials, and a certification study guide integrating the ArcGIS API for Python with Google Colab.
+            Published two technical articles on Esri's official developer blog and produced three instructional video tutorials on Esri's official YouTube channel.
           </p>
         </div>
-  
+
         <div class="timeline-item slide-in-left">
-          <div class="timeline-date">2023</div>
-          <h3 class="timeline-title">Computation Geospatial Data Science Intern</h3>
+          <div class="timeline-date">May 2023 – Aug 2023</div>
+          <h3 class="timeline-title">Computational Geospatial Data Science Intern</h3>
           <p class="timeline-company">Intermountain Forestry Cooperative (Moscow, ID)</p>
           <p class="timeline-description">
-            Engineered LiDAR analysis tools with Python, processed satellite imagery in GEE, and built a 3D LiDAR visualization app to support forestry research.
+            Built Python-based LiDAR classification and 3-D visualization workflows (pylas, PDAL, laspy).
+            Used the Google Earth Engine JavaScript API for multi-temporal satellite image analysis, land-cover classification, and NDVI computation.
           </p>
         </div>
-  
+
         <div class="timeline-item slide-in-right">
-          <div class="timeline-date">2023-2024</div>
-          <h3 class="timeline-title">Undergraduate Student Assistant</h3>
-          <p class="timeline-company">NASA Idaho Space Grant Consortium</p>
+          <div class="timeline-date">May 2023 – Apr 2024</div>
+          <h3 class="timeline-title">Undergraduate Research / Student Assistant</h3>
+          <p class="timeline-company">NASA Idaho Space Grant Consortium — NEBP (Lakeview, OR &amp; North Springfield, PA)</p>
           <p class="timeline-description">
-            Contributed to NASA's eclipse balloon launches collecting atmospheric data to improve weather forecasting and gravity wave research.
+            Supported two 30-hour balloon-launch operations for NASA's Nationwide Eclipse Ballooning Project (Oct 2023 annular and Apr 2024 total solar eclipses), gathering gravity-wave data.
+            Applied technical and analytical methods to process and evaluate gravity-wave sensor data.
           </p>
         </div>
-  
+
         <div class="timeline-item slide-in-left">
-          <div class="timeline-date">2022-2025</div>
-          <h3 class="timeline-title">Website Editor/Developer</h3>
-          <p class="timeline-company">NSA | University of Idaho (Moscow, ID)</p>
+          <div class="timeline-date">2022 – 2025</div>
+          <h3 class="timeline-title">Website Editor / Developer</h3>
+          <p class="timeline-company">Nepali Students' Association | University of Idaho (Moscow, ID)</p>
           <p class="timeline-description">
-            Revamped NSA website using HTML/CSS/JS; led content strategy and tech operations; improved navigation, responsiveness, and brand consistency.
+            Revamped the NSA website using HTML/CSS/JS; led content strategy and tech operations; improved navigation, responsiveness, and brand consistency.
           </p>
         </div>
-  
+
         <div class="timeline-item slide-in-right">
-          <div class="timeline-date">2021-2024</div>
-          <h3 class="timeline-title">Academic Tutor</h3>
+          <div class="timeline-date">Aug 2021 – Dec 2024</div>
+          <h3 class="timeline-title">Academic Tutor / Teaching Assistant</h3>
           <p class="timeline-company">University of Idaho (Moscow, ID)</p>
           <p class="timeline-description">
-            Tutored 1,000+ students in CS and math subjects; led workshops, debug sessions, and individualized instruction with 90% satisfaction rate and 25% grade improvement.
+            Guided 1,000+ students in Mathematics and Computer Science courses through one-on-one and group tutoring.
+            Served as Teaching Assistant for Computer Science classes, grading and mentoring students.
           </p>
         </div>
   
@@ -1694,28 +1779,34 @@
             <h2 class="section-title">Leadership & Activities</h2>
             <div class="leadership-grid">
                 <div class="leadership-card scale-in">
-                    <i class="fas fa-users leadership-icon"></i>
-                    <h3>President</h3>
-                    <p class="organization">Nepali Students' Association</p>
-                    <p>Leading the organization of cultural events like Taste of Nepal, showcasing traditional dances, music, and cuisine. Managing a planning committee with seven teams to celebrate and share Nepali heritage.</p>
+                    <i class="fas fa-bullhorn leadership-icon"></i>
+                    <h3>Director of Communications &amp; Digital Engagement</h3>
+                    <p class="organization">International Alumni Council, University of Idaho · 2026 – Present</p>
+                    <p>Lead communications strategy and stakeholder content for the newly formed executive board of the International Alumni Council.</p>
                 </div>
                 <div class="leadership-card scale-in">
                     <i class="fas fa-globe leadership-icon"></i>
-                    <h3>International Ambassador</h3>
-                    <p class="organization">University of Idaho IPO</p>
-                    <p>Distinguished campus leader helping international students with registration, housing, and campus resources. Facilitating orientation programs and serving as a role model for incoming students.</p>
+                    <h3>International Student Ambassador</h3>
+                    <p class="organization">University of Idaho · May 2024 – May 2025</p>
+                    <p>Assisted hundreds of international students, spearheaded a housing initiative, and launched "From Everywhere to Idaho," a podcast sharing international students' stories.</p>
                 </div>
                 <div class="leadership-card scale-in">
-                    <i class="fas fa-rocket leadership-icon"></i>
-                    <h3>Team Member</h3>
-                    <p class="organization">NASA Eclipse Ballooning Project</p>
-                    <p>Collaborated with engineering students to launch weather balloons for atmospheric data collection during solar eclipses, contributing to NASA's weather tracking improvements.</p>
+                    <i class="fas fa-users leadership-icon"></i>
+                    <h3>President</h3>
+                    <p class="organization">Nepali Students' Association, University of Idaho · May 2024 – May 2025</p>
+                    <p>Led an executive team and an organization of 350+ members — resource planning, event budgets, and volunteer task assignments — including cultural events like Taste of Nepal.</p>
                 </div>
                 <div class="leadership-card scale-in">
-                    <i class="fas fa-heart leadership-icon"></i>
-                    <h3>Cultural Advocate</h3>
-                    <p class="organization">International Community</p>
-                    <p>Organizing events to bridge cultures, including traditional performances and authentic cuisine experiences. Creating connections between international and domestic students.</p>
+                    <i class="fas fa-diagram-project leadership-icon"></i>
+                    <h3>Technical Team Lead</h3>
+                    <p class="organization">Senior Capstone — Lightcast Consulting Cloud</p>
+                    <p>Directed a development team building a hybrid cloud-local automation platform for a real external client (Lightcast Consulting) over a year-long engagement.</p>
+                </div>
+                <div class="leadership-card scale-in">
+                    <i class="fas fa-lightbulb leadership-icon"></i>
+                    <h3>LeaderShape Institute — Participant</h3>
+                    <p class="organization">University of Idaho · March 2025</p>
+                    <p>Selected for the university's inaugural four-day national leadership development retreat.</p>
                 </div>
             </div>
         </div>
@@ -1726,65 +1817,8 @@
         <div class="campus-container">
             <h2 class="section-title">Undergrad Life @ U of I</h2>
             <p class="campus-subtitle">Four years of memories, friendships, and growth in Moscow, Idaho</p>
-            <div class="campus-grid">
-                <!-- Replace src with your actual photos -->
-                <div class="campus-photo large scale-in">
-                    <img src="src/images/headshot1.jpg" alt="Shashwot at University of Idaho">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-camera"></i> University of Idaho</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with your Taste of Nepal photo -->
-                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=300&fit=crop" alt="Taste of Nepal Event">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-utensils"></i> Taste of Nepal</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with your NASA balloon launch photo -->
-                    <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?w=400&h=300&fit=crop" alt="NASA Eclipse Balloon">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-rocket"></i> NASA Balloon Launch</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with your campus/Moscow photo -->
-                    <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=400&h=300&fit=crop" alt="Campus Life">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-university"></i> Campus Life</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with a hiking/outdoor photo -->
-                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=300&fit=crop" alt="Hiking Adventures">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-mountain"></i> Idaho Adventures</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with a sports/soccer photo -->
-                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=300&fit=crop" alt="Sports & Activities">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-futbol"></i> Soccer & Sports</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with cultural event photo -->
-                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=300&fit=crop" alt="Cultural Events">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-music"></i> Cultural Events</span>
-                    </div>
-                </div>
-                <div class="campus-photo scale-in">
-                    <!-- Replace with friends/group photo -->
-                    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=300&fit=crop" alt="Friends & Community">
-                    <div class="campus-overlay">
-                        <span><i class="fas fa-heart"></i> Community & Friends</span>
-                    </div>
-                </div>
-            </div>
-            <p class="campus-note"><i class="fas fa-info-circle"></i> Replace the placeholder images above with your real photos to personalize this section.</p>
+            <div class="campus-grid" id="campusGrid" data-src="src/data/campus.json"></div>
+            <p class="campus-note"><i class="fas fa-heart"></i> Snapshots from four years in Moscow, Idaho.</p>
         </div>
     </section>
 
@@ -1857,124 +1891,17 @@
                 <button class="filter-btn" data-filter="web">Web Development</button>
                 <button class="filter-btn" data-filter="ml">Machine Learning</button>
                 <button class="filter-btn" data-filter="gis">GIS</button>
+                <button class="filter-btn" data-filter="mobile">Mobile</button>
                 <button class="filter-btn" data-filter="game">Game Development</button>
             </div>
-            <div class="projects-grid">
-                <div class="project-card" data-category="web">
-                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop" alt="Stock Alert" class="project-image">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">API</span>
-                            <span class="project-tag">Automation</span>
-                        </div>
-                        <h3>Stock Alert System</h3>
-                        <p>A Python script that tracks stock prices and sends email notifications when prices reach specified thresholds.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Physic1990/Stock_Alert" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="web">
-                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=300&fit=crop" alt="Airport Display" class="project-image">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">Cassandra</span>
-                        </div>
-                        <h3>Airport Flight Display System</h3>
-                        <p>Full-stack application using React, Node.js, and Datastax Astra DB for real-time flight information display.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Physic1990/Airport-Flight-Display-System" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="web">
-                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop" alt="VOiC" class="project-image">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Cloud</span>
-                            <span class="project-tag">Collaboration</span>
-                            <span class="project-tag">Security</span>
-                        </div>
-                        <h3>Virtual Office in the Cloud</h3>
-                        <p>Modern web-based document management system for secure creation, sharing, and updating of digital documents.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/ConnerWiench/VOiC" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="ml">
-                    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" alt="ML Music Analysis" class="project-image">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Machine Learning</span>
-                            <span class="project-tag">Python</span>
-                            <span class="project-tag">Data Analysis</span>
-                        </div>
-                        <h3>Music Analysis using ML</h3>
-                        <p>Machine Learning project analyzing Spotify and YouTube data to provide personalized song recommendations.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Physic1990/Spotify-and-YouTube-Analysis-using-Machine-Learning-Algorithms" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="game">
-                    <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&h=300&fit=crop" alt="Pong Game" class="project-image">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">Unity</span>
-                            <span class="project-tag">C#</span>
-                            <span class="project-tag">Game Dev</span>
-                        </div>
-                        <h3>Pong Game</h3>
-                        <p>Classic Pong arcade game recreated in Unity with C#, featuring smooth gameplay and retro aesthetics.</p>
-                        <div class="project-links">
-                            <a href="https://github.com/Physic1990/Pong" class="project-link" target="_blank">
-                                <i class="fab fa-github"></i> View Code
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card" data-category="gis">
-                    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&h=300&fit=crop" alt="Geo-Locate" class="project-image">
-                    <div class="project-content">
-                        <div class="project-tags">
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">GIS</span>
-                            <span class="project-tag">EXIF</span>
-                        </div>
-                        <h3>Geo-Locate</h3>
-                        <p>Web application that extracts and displays geolocation information from uploaded images using EXIF data.</p>
-                        <div class="project-links">
-                            <a href="geolocate.html" class="project-link">
-                                <i class="fas fa-external-link-alt"></i> Live Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="projects-grid" id="projectsGrid" data-src="src/data/projects.json"></div>
         </div>
     </section>
 
     <!-- Blog Section -->
     <section class="blog fade-in" id="blog">
         <div class="projects-container">
-            <h2 class="section-title">Recent Blog Posts</h2>
+            <h2 class="section-title">From the Blog</h2>
             <div class="blog-grid">
                 <div class="blog-card scale-in">
                     <img src="https://cdn.hashnode.com/res/hashnode/image/stock/unsplash/V2WEeYEjBJ0/upload/2c38467188cd5cd72893c414ef4a5a18.jpeg?w=1600&h=840&fit=crop&crop=entropy&auto=compress,format&format=webp" alt="Google Earth Engine" class="blog-image">
@@ -1982,7 +1909,7 @@
                         <p class="blog-date">December 2023</p>
                         <h3>Using Google Earth Engine for Remote Sensing</h3>
                         <p>Learn how to analyze NDVI for drought and non-drought years in the Palouse region using Google Earth Engine.</p>
-                        <a href="https://shashwot.hashnode.dev/using-google-earth-engine-for-remote-sensing" class="read-more" target="_blank">
+                        <a href="https://shashwot.hashnode.dev/using-google-earth-engine-for-remote-sensing" class="read-more" target="_blank" rel="noopener">
                             Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -1994,7 +1921,7 @@
                         <p class="blog-date">January 2024</p>
                         <h3>Navigating the Unexpected: My 2023 Journey</h3>
                         <p>Reflecting on personal growth, career development, and unexpected opportunities throughout 2023.</p>
-                        <a href="https://shashwot.hashnode.dev/navigating-the-unexpected-my-2023-journey" class="read-more" target="_blank">
+                        <a href="https://shashwot.hashnode.dev/navigating-the-unexpected-my-2023-journey" class="read-more" target="_blank" rel="noopener">
                             Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -2006,14 +1933,14 @@
                         <p class="blog-date">November 2023</p>
                         <h3>Documentation as a Storytelling Medium</h3>
                         <p>Exploring how effective documentation enhances collaboration and code maintenance in software development.</p>
-                        <a href="https://shashwot.hashnode.dev/documentation-as-a-storytelling-medium-crafting-narratives-in-code" class="read-more" target="_blank">
+                        <a href="https://shashwot.hashnode.dev/documentation-as-a-storytelling-medium-crafting-narratives-in-code" class="read-more" target="_blank" rel="noopener">
                             Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 2rem;">
-                <a href="https://shashwot.hashnode.dev/" class="btn btn-primary" target="_blank">
+                <a href="https://shashwot.hashnode.dev/" class="btn btn-primary" target="_blank" rel="noopener">
                     View All Posts on Hashnode
                 </a>
             </div>
@@ -2034,21 +1961,26 @@
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-map-marker-alt"></i>
-                    <h3>Locations</h3>
-                    <p>USA</p>
+                    <h3>Location</h3>
+                    <p>Moscow, ID · Boise, ID</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                    <p>linkedin.com/in/shashwot-niraula-469862213</p>
                 </div>
 
             </div>
             
             <div class="contact-socials">
-                <a href="https://github.com/Physic1990/" target="_blank">
-                    <i class="fab fa-github"></i>
+                <a href="https://github.com/Physic1990/" target="_blank" rel="noopener" aria-label="GitHub profile">
+                    <i class="fab fa-github" aria-hidden="true"></i>
                 </a>
-                <a href="mailto:niraulashashwot@gmail.com">
-                    <i class="fas fa-envelope"></i>
+                <a href="mailto:niraulashashwot@gmail.com" aria-label="Email Shashwot">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/shashwot-niraula-469862213/" target="_blank">
-                    <i class="fab fa-linkedin"></i>
+                <a href="https://www.linkedin.com/in/shashwot-niraula-469862213/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
                 </a>
             </div>
         </div>
@@ -2056,27 +1988,28 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Shashwot Niraula. Crafted with passion and code.</p>
+        <p>&copy; <span id="year">2026</span> Shashwot Niraula. Crafted with passion and code.</p>
     </footer>
 
     <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <script>
-        // Loading Animation
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1000);
-        });
+        // Respect reduced-motion preference
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Custom Cursor (Desktop only)
+        // Loading Animation — hide as soon as the page is ready
+        const hideLoader = () => document.getElementById('loader').classList.add('hidden');
+        if (document.readyState === 'complete') hideLoader();
+        else window.addEventListener('load', hideLoader);
+
+        // Custom Cursor (Desktop only, and not when reduced motion is requested)
         const cursor = document.querySelector('.cursor');
         const cursorFollower = document.querySelector('.cursor-follower');
 
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 768 && !reduceMotion) {
             document.addEventListener('mousemove', (e) => {
                 cursor.style.left = e.clientX + 'px';
                 cursor.style.top = e.clientY + 'px';
@@ -2104,8 +2037,9 @@
         // Typing Effect
         const typingElement = document.getElementById('typing');
         const phrases = [
-            'Geospatial Application Developer/Analyst',
-            'Full-Stack Developer'
+            'Geospatial Application Developer / Analyst',
+            'Full-Stack Developer',
+            'GIS + AI Engineer'
         ];
         let phraseIndex = 0;
         let charIndex = 0;
@@ -2141,17 +2075,19 @@
         const navLinks = document.getElementById('navLinks');
 
         hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('show');
-            hamburger.innerHTML = navLinks.classList.contains('show') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
+            const open = navLinks.classList.toggle('show');
+            hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+            hamburger.innerHTML = open
+                ? '<i class="fas fa-times" aria-hidden="true"></i>'
+                : '<i class="fas fa-bars" aria-hidden="true"></i>';
         });
 
         // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('show');
-                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
             });
         });
 
@@ -2169,9 +2105,13 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
-            observer.observe(el);
-        });
+        // Observe animated elements (call again after injecting dynamic content)
+        function observeAnimated(root = document) {
+            root.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        observeAnimated();
 
         // Header scroll effect
         let lastScroll = 0;
@@ -2222,35 +2162,98 @@
             });
         });
 
-        // Project Filtering
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const projectCards = document.querySelectorAll('.project-card');
+        // Project Filtering (wired after the project cards are rendered)
+        function initProjectFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
 
-                const filter = btn.getAttribute('data-filter');
+                    const filter = btn.getAttribute('data-filter');
 
-                projectCards.forEach(card => {
-                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                        card.style.display = 'block';
-                        setTimeout(() => {
-                            card.style.opacity = '1';
-                            card.style.transform = 'scale(1)';
-                        }, 100);
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.8)';
-                        setTimeout(() => {
-                            card.style.display = 'none';
-                        }, 300);
-                    }
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
                 });
             });
-        });
+        }
+
+        // ---- Data-driven collections (Campus Life + Projects) ----
+        // Content lives in src/data/*.json and is edited through the admin panel
+        // (Pages CMS). Editing those files here works too.
+        const escapeHtml = (str) => String(str == null ? '' : str).replace(/[&<>"']/g, c => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+
+        function renderCampus(container, photos) {
+            container.innerHTML = (photos || []).map(p => `
+                <div class="campus-photo${p.large ? ' large' : ''} scale-in">
+                    <img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.caption || 'Campus photo')}" loading="lazy">
+                    <div class="campus-overlay">
+                        <span><i class="fas ${escapeHtml(p.icon || 'fa-camera')}" aria-hidden="true"></i> ${escapeHtml(p.caption || '')}</span>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderProjects(container, projects) {
+            container.innerHTML = (projects || []).map(pr => {
+                const tags = (pr.tags || []).map(t => `<span class="project-tag">${escapeHtml(t)}</span>`).join('');
+                const links = (pr.links || []).map(l => {
+                    const ext = /^https?:\/\//i.test(l.url);
+                    const iconClass = (l.brand ? 'fab ' : 'fas ') + escapeHtml(l.icon || (ext ? 'fa-external-link-alt' : 'fa-link'));
+                    return `<a href="${escapeHtml(l.url)}" class="project-link"${ext ? ' target="_blank" rel="noopener"' : ''}>
+                        <i class="${iconClass}" aria-hidden="true"></i> ${escapeHtml(l.label || 'View')}
+                    </a>`;
+                }).join('');
+                return `
+                <div class="project-card" data-category="${escapeHtml(pr.category || 'all')}">
+                    <img src="${escapeHtml(pr.image)}" alt="${escapeHtml(pr.title || 'Project')}" class="project-image" loading="lazy">
+                    <div class="project-content">
+                        <div class="project-tags">${tags}</div>
+                        <h3>${escapeHtml(pr.title || '')}</h3>
+                        <p>${escapeHtml(pr.description || '')}</p>
+                        <div class="project-links">${links}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        async function renderCollections() {
+            const campusEl = document.getElementById('campusGrid');
+            const projectsEl = document.getElementById('projectsGrid');
+            try {
+                if (campusEl) {
+                    const data = await fetch(campusEl.dataset.src, { cache: 'no-cache' }).then(r => r.json());
+                    renderCampus(campusEl, data.photos);
+                }
+            } catch (e) { console.error('Campus data failed to load', e); }
+            try {
+                if (projectsEl) {
+                    const data = await fetch(projectsEl.dataset.src, { cache: 'no-cache' }).then(r => r.json());
+                    renderProjects(projectsEl, data.projects);
+                }
+            } catch (e) { console.error('Projects data failed to load', e); }
+
+            observeAnimated();
+            initProjectFilters();
+        }
+
+        renderCollections();
 
         // Add animation to skill tags on hover
         document.querySelectorAll('.skill-tag').forEach(tag => {
@@ -2262,16 +2265,18 @@
             });
         });
 
-        // Add parallax effect to shapes
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const shapes = document.querySelectorAll('.shape');
-            
-            shapes.forEach((shape, index) => {
-                const speed = 0.5 + (index * 0.2);
-                shape.style.transform = `translateY(${scrolled * speed}px)`;
+        // Add parallax effect to shapes (skipped when reduced motion is requested)
+        if (!reduceMotion) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const shapes = document.querySelectorAll('.shape');
+
+                shapes.forEach((shape, index) => {
+                    const speed = 0.5 + (index * 0.2);
+                    shape.style.transform = `translateY(${scrolled * speed}px)`;
+                });
             });
-        });
+        }
 
         // Add hover effect to timeline items
         document.querySelectorAll('.timeline-item').forEach(item => {
@@ -2319,14 +2324,6 @@
             });
         });
 
-        // Add hover sound effect (optional - requires audio file)
-        const hoverSound = new Audio('data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=');
-        document.querySelectorAll('.btn, .social-link, .project-card').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                hoverSound.play().catch(() => {});
-            });
-        });
-
         // Dynamic navigation highlight based on scroll position
         const sections = document.querySelectorAll('section[id]');
         const navItems = document.querySelectorAll('.nav-links a');
@@ -2359,6 +2356,10 @@
         });
 
         // Initialize particles or other background effects here if needed
+        // Keep footer year current
+        const yearEl = document.getElementById('year');
+        if (yearEl) yearEl.textContent = new Date().getFullYear();
+
         console.log('Portfolio loaded successfully! 🚀');
     </script>
 </body>
