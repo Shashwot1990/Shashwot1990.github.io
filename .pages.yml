@@ -15,7 +15,10 @@ content:
       - name: photos
         label: Photos
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.caption} — {fields.icon}"
         fields:
           - name: image
             label: Photo
@@ -41,7 +44,10 @@ content:
       - name: projects
         label: Projects
         type: object
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{fields.title}  ·  {fields.category}"
         fields:
           - name: title
             label: Title
@@ -64,7 +70,10 @@ content:
           - name: links
             label: Links
             type: object
-            list: true
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{fields.label} → {fields.url}"
             fields:
               - name: label
                 label: Link text
