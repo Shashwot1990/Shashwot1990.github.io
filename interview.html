@@ -16,6 +16,8 @@
     --accent-dim: #1F4A42;
     --personal: #E8A24D;
     --personal-dim: #4A3418;
+    --behavioral: #8E9EED;
+    --behavioral-dim: #2A2F52;
     --warn: #E7B15C;
     --radius: 3px;
     --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
@@ -50,10 +52,13 @@
   .item .catdot{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:7px;height:7px;border-radius:50%;background:var(--text-dim);}
   .item.cat-technical .catdot{background:var(--accent);}
   .item.cat-personal .catdot{background:var(--personal);}
+  .item.cat-behavioral .catdot{background:var(--behavioral);}
   .item.active{background:var(--accent-dim);color:var(--accent);font-weight:600;}
   .item.cat-personal.active{background:var(--personal-dim);color:var(--personal);}
+  .item.cat-behavioral.active{background:var(--behavioral-dim);color:var(--behavioral);}
   .item.active::before{content:"";position:absolute;left:6px;top:9px;bottom:9px;width:2px;background:var(--accent);border-radius:2px;}
   .item.cat-personal.active::before{background:var(--personal);}
+  .item.cat-behavioral.active::before{background:var(--behavioral);}
   mark{background:var(--warn);color:#1a1305;border-radius:2px;padding:0 1px;}
   .no-results{color:var(--text-dim);font-size:12.5px;padding:16px 10px;}
 
@@ -71,6 +76,8 @@
   h1.qtitle{font-size:20px;line-height:1.35;margin:0 0 16px;color:#F1F5F9;font-weight:650;max-width:62ch;}
   .answer{font-size:15px;line-height:1.7;color:var(--text);max-width:70ch;}
   .answer strong.kw{color:var(--accent);font-weight:600;}
+  .tip{border-left:3px solid var(--warn);background:var(--panel-2);padding:10px 14px;border-radius:var(--radius);font-size:13px;color:var(--text-dim);margin-top:16px;line-height:1.55;}
+  .tip strong{color:var(--warn);}
 
   .empty-state{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;color:var(--text-dim);max-width:46ch;}
   .empty-state .big{font-size:17px;color:var(--text);margin-bottom:8px;}
@@ -106,6 +113,7 @@
       <div class="search-count" id="searchCount"></div>
       <div class="legend">
         <span><span class="catdot" style="position:static;transform:none;display:inline-block;background:var(--personal);"></span>Personal</span>
+        <span><span class="catdot" style="position:static;transform:none;display:inline-block;background:var(--behavioral);"></span>Situational</span>
         <span><span class="catdot" style="position:static;transform:none;display:inline-block;background:var(--accent);"></span>Technical</span>
       </div>
     </div>
@@ -140,119 +148,162 @@
 const DATA = [
   {
     type: "personal",
-    term: "Tell us about yourself / Introduce yourself.",
-    short: "Tell us about yourself",
-    html: `My name is Rashmi Dhakal, and I'm studying Business Information Analytics at the University of Idaho. I currently work at the Student Technology Center as an IT Customer Support Representative, where I help students, faculty, and staff with technical issues such as account access, MFA, VPN, Microsoft 365, and hardware and software problems. I also have experience using <strong class="kw">Active Directory, TeamDynamix</strong>, and basic command-line tools.
+    term: "Tell us briefly about your coursework and any work or projects you've done. What drew you to this position?",
+    short: "Coursework & why this role",
+    html: `I'm studying Business Information Analytics at the University of Idaho, and I'm currently taking courses like Database Design and Data Management and Security in the Cloud.
     <br><br>
-    Outside of work, I'm involved in several leadership roles on campus, including the MIS Club Executive Board, College of Business Ambassador, and International Ambassador. These experiences have helped me improve my communication, teamwork, and problem-solving skills.
+    I also work at the Student Technology Center as an IT Customer Support Representative. I help students, faculty, and staff with issues involving account access, MFA, VPN, Microsoft 365, hardware and software, and I use tools like <strong class="kw">Active Directory and TeamDynamix</strong>.
     <br><br>
-    I'm now interested in gaining more hands-on experience with <strong class="kw">servers, systems, endpoint management, and IT infrastructure</strong>, which is why I'm excited about this position.`
+    I'm interested in this position because I want to move beyond user support and gain more hands-on experience with <strong class="kw">servers, systems, cloud technology, and IT infrastructure</strong>.`
   },
   {
-    type: "personal",
-    term: "What are your strengths?",
-    short: "Your strengths",
-    html: `I would say my main strengths are that I'm a quick learner, I'm good at problem-solving, and I'm comfortable communicating with different people. In my current IT support job, I often have to listen to a user's problem, ask the right questions, and troubleshoot it step by step.
-    <br><br>
-    I'm also not afraid to ask questions when I don't know something. I would rather <strong class="kw">verify the correct information</strong> and learn from someone than guess, especially when working with important systems.`
-  },
-  {
-    type: "personal",
-    term: "What is your biggest weakness?",
-    short: "Your biggest weakness",
-    html: `One weakness I'm currently working on is that sometimes I spend too much time trying to solve a problem on my own before asking for help. I like trying to figure things out myself because that helps me learn, but I've realized that in IT, <strong class="kw">knowing when to ask for help</strong> is also important.
-    <br><br>
-    I'm getting better at setting a limit for how long I troubleshoot something, checking the available documentation, and then asking a team member when I need help.`
-  },
-  {
-    type: "personal",
-    term: "Why should we hire you?",
-    short: "Why we should hire you",
-    html: `I already have IT support experience at the University of Idaho, so I'm familiar with the university environment and supporting students, faculty, and staff. I have experience with troubleshooting, Active Directory, TeamDynamix, Windows, macOS, Linux, and basic command-line tools.
-    <br><br>
-    I know I still have more to learn about servers and infrastructure, but I'm <strong class="kw">willing to learn</strong>, I ask questions when I'm unsure, and I'm genuinely interested in developing my skills in this area.`
-  },
-  {
-    type: "personal",
-    term: "Why do you want this position?",
-    short: "Why you want this position",
-    html: `I'm interested in this position because I want to grow beyond user support and gain more experience with servers, systems, endpoint management, and IT infrastructure. My current position has given me a good foundation in troubleshooting and IT support, and now I want to understand more about <strong class="kw">what happens behind the scenes</strong>.
-    <br><br>
-    I think this position would be a great opportunity for me to get hands-on experience while learning from an experienced team.`
-  },
-  {
-    type: "personal",
-    term: "What makes you a good fit for this position?",
-    short: "Why you're a good fit",
-    html: `I think I'm a good fit because I already have experience working in IT support, so I understand troubleshooting, documentation, communication, and when to escalate an issue. I also have some experience with Active Directory, command-line tools, and different operating systems.
-    <br><br>
-    Most importantly, I'm interested in systems and infrastructure, and I'm <strong class="kw">willing to learn</strong>. I know I won't know everything when I start, but I'm comfortable asking questions and learning new technologies.`
-  },
-  {
-    type: "personal",
-    term: "Where do you see yourself after graduation?",
-    short: "After graduation plans",
-    html: `After graduation, I would like to continue working in technology, especially in areas like systems administration, cloud technology, IT infrastructure, or data analytics. I'm still exploring which area I want to specialize in, so right now my goal is to get more hands-on experience and build my technical skills.
-    <br><br>
-    That's one of the reasons I'm interested in this position — because it would give me experience with <strong class="kw">servers, systems, and infrastructure</strong> that I don't get as much exposure to in my current support role.`
+    type: "behavioral",
+    term: "Are you comfortable with the physical side of data center work?",
+    short: "Comfortable with physical work",
+    html: `Yes, I'm comfortable with that. I understand that data center work can involve being on my feet, working in a cold and loud environment, and handling equipment. I'm comfortable with physical work and following proper <strong class="kw">safety procedures</strong>.`
   },
   {
     type: "technical",
+    term: "When you run into something you don't know how to do, how do you figure it out? Where do you look first?",
+    short: "How you find answers",
+    html: `First, I make sure I understand the problem clearly. Then I check our internal documentation, knowledge base, or SOPs. I also look at official documentation, such as Microsoft documentation, and previous TeamDynamix tickets if they are relevant.
+    <br><br>
+    If I'm still unsure, I ask my supervisor or someone with more experience. Especially when working with important systems, I would rather <strong class="kw">ask than guess</strong> and make a change that could cause a bigger problem.
+    <div class="tip"><strong>Remember:</strong> Understand → Documentation → Previous tickets → Ask.</div>`
+  },
+  {
+    type: "technical",
+    term: "Tell us about something technical you've built, fixed, set up, or taken apart on your own time. What did you learn?",
+    short: "A project you've built",
+    html: `One technical project I worked on was building a Power BI Help Desk Dashboard. I worked with help desk data and created visualizations for things like ticket volume, categories, and resolution information.
+    <br><br>
+    It taught me that before building anything, you need to <strong class="kw">understand your data</strong> and what information you actually want to get from it. I also learned a lot by trying things, running into problems, researching them, and fixing them.
+    <div class="tip"><strong>Note:</strong> Don't invent a project — this Power BI Help Desk Dashboard is backed by your resume, so stick with it if asked follow-ups.</div>`
+  },
+  {
+    type: "behavioral",
+    term: "Some work is repetitive and detail-heavy. How do you keep yourself accurate?",
+    short: "Staying accurate on repetitive work",
+    html: `I try to follow the checklist or documentation step by step instead of relying on memory. I also double-check important information before moving to the next step.
+    <br><br>
+    Even if I've done the same task many times, I try not to rush because I know that <strong class="kw">one small mistake can cause a bigger problem</strong>, especially when working with systems or hardware.
+    <div class="tip"><strong>Remember:</strong> Checklist → Don't rush → Double-check.</div>`
+  },
+  {
+    type: "behavioral",
     term: "Tell us about a time you got something wrong. How did you find out, and what did you do next?",
     short: "Time you got something wrong",
-    html: `In my current IT support job, there was a time when I was working on a ticket and realized that I hadn't included enough information in my documentation. I noticed it when I reviewed the ticket before it was escalated.
+    html: `There was a time when I was working on a support ticket and realized that I hadn't included enough information in my documentation. When I reviewed the ticket, I noticed some details were missing.
     <br><br>
-    I went back, added the missing troubleshooting steps and details, and made sure the next technician could clearly understand what had already been done. Since then, I always review my ticket notes before closing or escalating them.
+    I went back and added the information so the next technician could clearly understand what had already been done. It reminded me to <strong class="kw">double-check my documentation</strong> before closing or escalating a ticket.
+    <div class="tip"><strong>Note:</strong> Use a real small mistake from work if possible — don't memorize this if it didn't actually happen, they may ask follow-up questions.</div>`
+  },
+  {
+    type: "behavioral",
+    term: "Describe a time you noticed something needed attention and did something without being asked.",
+    short: "Noticed something & acted",
+    html: `During Cruise the World, I was responsible for coordinating multiple performances. If I noticed that scheduling or technical information was missing, I would reach out to the performers and get the information instead of waiting until the event.
     <br><br>
-    It taught me that <strong class="kw">small details and good documentation</strong> are really important in IT.`
+    I learned that <strong class="kw">taking care of small issues early</strong> can prevent much bigger problems later.
+    <div class="tip"><strong>Note:</strong> You coordinated schedules and technical requirements for 20+ performances — a strong, real example to lean on for this one.</div>`
   },
   {
     type: "technical",
-    term: "What is a virtual machine, and why would an organization use one instead of a physical server?",
+    term: "In plain terms, what's a virtual machine, and why would an organization run one instead of a physical server?",
     short: "What is a virtual machine?",
-    html: `A virtual machine is basically a computer that runs virtually on a physical computer. It has its own operating system, memory, storage, and applications, just like a physical computer.
+    html: `A virtual machine is basically a computer that runs virtually inside a physical computer. It has its own operating system, memory, storage, and applications.
     <br><br>
-    Organizations can run <strong class="kw">multiple virtual servers on one physical server</strong>, which helps them use hardware more efficiently, reduce costs and physical space, and makes servers easier to manage.
+    Organizations can use virtual machines to run <strong class="kw">multiple virtual servers on one physical server</strong>, which can save hardware, space, and resources. They can also be easier to create and manage.
     <br><br>
-    I'm currently taking a Data Management &amp; Security in Cloud class, so I'm learning more about cloud and virtual environments. I'm still building my hands-on experience, but I understand the basic concepts and I'm interested in learning more.`
+    I'm currently learning more about cloud and virtual environments in my Data Management and Security in the Cloud class.
+    <div class="tip"><strong>Remember:</strong> Computer inside a computer → saves hardware/resources → easier to manage.</div>`
   },
   {
     type: "technical",
-    term: "Beyond general web search or asking AI, where do you find reliable technical information?",
-    short: "Where you find reliable info",
-    html: `I usually start with official documentation from the company or technology provider, such as Microsoft documentation. At my current job, I also use our internal knowledge base, SOPs, and previous TeamDynamix tickets when appropriate.
-    <br><br>
-    If I still can't find the answer or I'm not sure, I ask a supervisor or someone on the technical team who has more experience. I think it's important to <strong class="kw">verify information before making changes</strong> to a system.`
-  },
-  {
-    type: "technical",
-    term: "What operating systems have you used? Have you used the command line?",
-    short: "OS & command line experience",
-    html: `Yes. I've worked with Windows, macOS, and Linux, and I have used command-line tools. I've used Command Prompt and PowerShell on Windows and Terminal on macOS and Linux.
-    <br><br>
-    I've used commands like <strong class="kw">ipconfig</strong> and <strong class="kw">ifconfig</strong> to check network information, <strong class="kw">ping</strong> to test connectivity, <strong class="kw">netstat</strong> to check network connections, and <strong class="kw">cd</strong>, <strong class="kw">ls</strong>, and <strong class="kw">dir</strong> to navigate files and folders. I've also used basic PowerShell commands like <strong class="kw">Get-Process</strong> and <strong class="kw">Get-Service</strong>.
-    <br><br>
-    My command-line experience is still basic, but I'm comfortable using it and continuing to learn.`
-  },
-  {
-    type: "technical",
-    term: "A user reports that a server or service is unreachable. What would you do?",
+    term: "A user reports that a server or service is unreachable. What are the first few things you'd check?",
     short: "Server/service unreachable",
-    html: `First, I would confirm the problem and find out whether it is affecting just one user or multiple users. Then I would check basic connectivity, such as using ping, and look at the monitoring dashboard for alerts or known outages.
+    html: `First, I would confirm the problem and find out whether it is affecting one user or multiple users.
     <br><br>
-    I would check whether the server or service is running and look for any recent changes that might have caused the issue.
+    Then I would check network connectivity using something like ping and look at the monitoring system for alerts or known outages. I would also check whether the server or service is actually running.
     <br><br>
-    If I couldn't resolve it, I would <strong class="kw">document everything I checked and escalate it</strong> to the appropriate person.`
+    If I couldn't resolve it, I would <strong class="kw">document everything I checked and escalate it</strong> to the appropriate person.
+    <div class="tip"><strong>Remember:</strong> User or everyone? → Connectivity → Alerts → Service → Escalate.</div>`
   },
   {
     type: "technical",
-    term: "What does it mean for a server to be healthy? What would you look at?",
+    term: "What operating systems have you used? Which are you most comfortable with? Have you used a command line?",
+    short: "OS & command line experience",
+    html: `I have used Windows, macOS, and Linux, and I'm most comfortable with Windows.
+    <br><br>
+    Yes, I have used command-line tools. I've used Command Prompt and PowerShell on Windows and Terminal on macOS and Linux.
+    <br><br>
+    I have run basic commands like <strong class="kw">ipconfig</strong> or <strong class="kw">ifconfig</strong> for network information, <strong class="kw">ping</strong> for connectivity, <strong class="kw">netstat</strong> for network connections, and commands like <strong class="kw">cd</strong>, <strong class="kw">ls</strong>, and <strong class="kw">dir</strong> for navigating files and directories. My command-line experience is still basic, but I'm comfortable with basic troubleshooting and I'm continuing to learn.
+    <div class="tip"><strong>Note:</strong> Your resume lists Windows, macOS, Linux, and basic PowerShell experience — matches this answer.</div>`
+  },
+  {
+    type: "technical",
+    term: "What does it mean for a server to be \"healthy\"? What would you look at every morning?",
     short: "What makes a server \"healthy\"",
-    html: `A healthy server means that it is online, stable, performing normally, and providing the services it is supposed to provide.
+    html: `To me, a healthy server means it's online, stable, and providing its services normally.
     <br><br>
-    I would check <strong class="kw">CPU usage, memory usage, disk space, network activity, uptime</strong>, and whether important services are running. I would also check monitoring alerts and logs for errors.
+    I would check <strong class="kw">CPU usage, memory usage, disk space, network activity, uptime</strong>, and whether important services are running. I would also look at monitoring alerts and logs for errors or unusual activity.
     <br><br>
-    Even if a server is online, high CPU or memory usage, low disk space, or a failed service could mean there is a problem.`
+    Even if a server is online, things like very high CPU usage, low disk space, or a failed service could show that something isn't healthy.
+    <div class="tip"><strong>Memorize:</strong> CPU → Memory → Disk → Network → Services → Alerts/Logs. This position specifically involves monitoring CPU, memory, disk, and network performance, so this one matters.</div>`
+  },
+  {
+    type: "behavioral",
+    term: "It's 8 PM, you're alone, and step 7 of a checklist doesn't match the documentation. Your supervisor and analysts are offline. What do you do?",
+    short: "Step doesn't match docs at 8PM",
+    html: `I would stop at that step and not guess. First, I would carefully review the documentation and make sure I hadn't missed anything. I would also check whether there was other approved documentation that could explain the difference.
+    <br><br>
+    If I still wasn't sure and the change could affect the system, I would <strong class="kw">not continue with that step</strong>. I would document where I stopped and what I found, and contact or wait for the appropriate person based on the team's procedure.
+    <br><br>
+    I would rather delay the task than make an unapproved change that could cause a bigger problem.
+    <div class="tip"><strong>Key:</strong> This is an important one — they're checking whether you'll guess or make a risky change. Never say "I'd just try it and see what happens."</div>`
+  },
+  {
+    type: "technical",
+    term: "Beyond web search or AI, where do you find reliable technical information? How do you keep up with technology?",
+    short: "Reliable info & staying current",
+    html: `I use official documentation from the company or technology provider, such as Microsoft documentation. At work, I also use our internal knowledge base, SOPs, and previous TeamDynamix tickets.
+    <br><br>
+    I also learn from my coworkers and supervisors who have more experience. For keeping up with technology, I use my coursework, official documentation, training resources, and hands-on experience at work.
+    <br><br>
+    I don't like to rely on just one source, especially when making a change that could affect a system.`
+  },
+  {
+    type: "behavioral",
+    term: "Your team is distributed. How do you keep work moving when the person who assigned you something isn't nearby?",
+    short: "Distributed team, unclear assignor",
+    html: `I would make sure the task and expectations are clear when I receive it. While working, I would document my progress so other team members can see what I've already done.
+    <br><br>
+    If I have a question, I would first check the documentation and available resources. If I still need help, I would communicate through the team's normal communication tools instead of just waiting.
+    <br><br>
+    I think <strong class="kw">good documentation and communication</strong> are especially important when people are working in different locations.`
+  },
+  {
+    type: "personal",
+    term: "What do you hope to get out of this job? Where do you picture yourself a couple of years after graduation?",
+    short: "What you hope to get / after grad",
+    html: `I hope to get more hands-on experience with servers, systems, cloud technology, and IT infrastructure. My current job has given me a good foundation in user support and troubleshooting, but I want to understand more about <strong class="kw">what happens behind the scenes</strong>.
+    <br><br>
+    After graduation, I see myself continuing to work in technology, possibly in systems administration, cloud, IT infrastructure, or data analytics. I'm still exploring exactly where I want to specialize, so right now my goal is to gain experience and build strong technical skills.
+    <div class="tip"><strong>Note:</strong> This fits the position well since it specifically offers training and mentorship with physical and virtual infrastructure.</div>`
+  },
+  {
+    type: "personal",
+    term: "Is there anything about the position you're unsure about? What questions do you have for us?",
+    short: "Your questions for them",
+    html: `Pick 2–3 of these — never say "No, I don't have any questions":
+    <ul style="margin:10px 0 0;padding-left:20px;">
+      <li>"What would training look like for someone starting in this position?"</li>
+      <li>"What would a typical day or week look like for a student technician?"</li>
+      <li>"What technologies or tools would I get the most hands-on experience with?"</li>
+      <li>"What would you expect me to be comfortable doing independently after the first few months?"</li>
+      <li>"What do students who have been successful in this position usually do well?"</li>
+    </ul>
+    <div class="tip"><strong>Note:</strong> The last question is a good one to prioritize — it gives you a chance to understand exactly what they're looking for.</div>`
   }
 ];
 
