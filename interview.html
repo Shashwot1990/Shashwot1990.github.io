@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SailPoint Interview Prep</title>
+<title>IT Support Interview Prep</title>
 <style>
   :root{
     --bg: #0B1220;
@@ -19,300 +19,63 @@
     --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
-
   *{box-sizing:border-box;}
   html,body{height:100%;}
-  body{
-    margin:0;
-    font-family:var(--sans);
-    background:var(--bg);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
-  }
+  body{margin:0;font-family:var(--sans);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
 
-  /* ---------- App shell ---------- */
-  .app{
-    display:flex;
-    height:100vh;
-    height:100dvh;
-    overflow:hidden;
-  }
+  .app{display:flex;height:100vh;height:100dvh;overflow:hidden;}
+  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:15;display:none;}
+  .backdrop.show{display:block;}
 
-  /* ---------- Sidebar ---------- */
-  .sidebar{
-    width:300px;
-    min-width:300px;
-    background:var(--panel);
-    border-right:1px solid var(--line);
-    display:flex;
-    flex-direction:column;
-    overflow:hidden;
-    transition:width .18s ease, min-width .18s ease;
-  }
-  .sidebar.collapsed{
-    width:0;
-    min-width:0;
-    border-right:none;
-  }
-
-  .sidebar-head{
-    padding:14px 14px 10px;
-    border-bottom:1px solid var(--line);
-    flex-shrink:0;
-  }
-  .brand{
-    font-size:13px;
-    letter-spacing:.02em;
-    color:var(--text-dim);
-    margin:0 0 10px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-  .brand .dot{
-    width:7px;height:7px;border-radius:50%;
-    background:var(--accent);
-    display:inline-block;
-    margin-right:7px;
-    box-shadow:0 0 6px var(--accent);
-  }
-  .brand-title{display:flex;align-items:center;color:var(--text);font-weight:600;font-size:13.5px;}
-
+  .sidebar{width:300px;min-width:300px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden;transition:width .18s ease, min-width .18s ease;}
+  .sidebar.collapsed{width:0;min-width:0;border-right:none;}
+  .sidebar-head{padding:14px 14px 10px;border-bottom:1px solid var(--line);flex-shrink:0;}
+  .brand{font-size:13.5px;font-weight:600;color:var(--text);margin:0 0 10px;display:flex;align-items:center;}
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;margin-right:7px;box-shadow:0 0 6px var(--accent);}
   .search-wrap{position:relative;}
-  .search-wrap input{
-    width:100%;
-    background:var(--bg);
-    border:1px solid var(--line);
-    color:var(--text);
-    padding:8px 10px 8px 28px;
-    border-radius:var(--radius);
-    font-size:13px;
-    font-family:var(--sans);
-    outline:none;
-  }
+  .search-wrap input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--text);padding:8px 10px 8px 28px;border-radius:var(--radius);font-size:13px;font-family:var(--sans);outline:none;}
   .search-wrap input:focus{border-color:var(--accent);}
-  .search-wrap svg{
-    position:absolute;
-    left:8px;top:50%;
-    transform:translateY(-50%);
-    width:13px;height:13px;
-    color:var(--text-dim);
-    pointer-events:none;
-  }
-  .search-count{
-    font-size:11px;
-    color:var(--text-dim);
-    padding:6px 2px 0;
-  }
+  .search-wrap svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text-dim);pointer-events:none;}
+  .search-count{font-size:11px;color:var(--text-dim);padding:6px 2px 0;}
 
-  .nav{
-    flex:1;
-    overflow-y:auto;
-    padding:6px 8px 16px;
-  }
+  .nav{flex:1;overflow-y:auto;padding:6px 8px 16px;}
   .nav::-webkit-scrollbar{width:8px;}
   .nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
-
-  .group{margin-bottom:2px;}
-  .group-btn{
-    width:100%;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    background:none;
-    border:none;
-    color:var(--text-dim);
-    font-size:11px;
-    letter-spacing:.04em;
-    padding:10px 6px 6px;
-    cursor:pointer;
-    text-align:left;
-    font-family:var(--sans);
-  }
-  .group-btn .chev{
-    width:9px;height:9px;
-    flex-shrink:0;
-    transition:transform .15s ease;
-    color:var(--text-dim);
-  }
-  .group.open .group-btn .chev{transform:rotate(90deg);}
-  .group-btn .gname{color:#A9B6CE;font-weight:600;}
-  .group-count{
-    margin-left:auto;
-    font-family:var(--mono);
-    font-size:10px;
-    color:var(--text-dim);
-  }
-
-  .items{
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .18s ease;
-  }
-  .group.open .items{max-height:800px;}
-
-  .item{
-    display:block;
-    width:100%;
-    text-align:left;
-    background:none;
-    border:none;
-    color:var(--text);
-    font-size:13.5px;
-    line-height:1.35;
-    padding:10px 12px 10px 16px;
-    border-radius:var(--radius);
-    cursor:pointer;
-    font-family:var(--sans);
-    position:relative;
-    margin:1px 0;
-  }
+  .item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--text);font-size:13.5px;line-height:1.4;padding:10px 12px 10px 16px;border-radius:var(--radius);cursor:pointer;font-family:var(--sans);position:relative;margin:1px 0;}
   .item:hover{background:var(--panel-2);}
-  .item.active{
-    background:var(--accent-dim);
-    color:var(--accent);
-    font-weight:600;
-  }
-  .item.active::before{
-    content:"";
-    position:absolute;
-    left:6px; top:9px; bottom:9px;
-    width:2px;
-    background:var(--accent);
-    border-radius:2px;
-  }
+  .item.active{background:var(--accent-dim);color:var(--accent);font-weight:600;}
+  .item.active::before{content:"";position:absolute;left:6px;top:9px;bottom:9px;width:2px;background:var(--accent);border-radius:2px;}
   mark{background:var(--warn);color:#1a1305;border-radius:2px;padding:0 1px;}
+  .no-results{color:var(--text-dim);font-size:12.5px;padding:16px 10px;}
 
-  .no-results{
-    color:var(--text-dim);
-    font-size:12.5px;
-    padding:16px 10px;
-  }
-
-  /* ---------- Main content ---------- */
-  .main{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    min-width:0;
-    overflow:hidden;
-  }
-
-  .topbar{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 16px;
-    border-bottom:1px solid var(--line);
-    flex-shrink:0;
-    background:var(--panel);
-  }
-  .icon-btn{
-    background:none;
-    border:1px solid var(--line);
-    color:var(--text-dim);
-    width:30px;height:30px;
-    border-radius:var(--radius);
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-    flex-shrink:0;
-  }
+  .main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+  .topbar{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line);flex-shrink:0;background:var(--panel);}
+  .icon-btn{background:none;border:1px solid var(--line);color:var(--text-dim);width:30px;height:30px;border-radius:var(--radius);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
   .icon-btn:hover{color:var(--text);border-color:var(--text-dim);}
-  .crumbs{
-    font-size:12px;
-    color:var(--text-dim);
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-  }
+  .crumbs{font-size:12px;color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
   .crumbs b{color:var(--text);font-weight:600;}
-  .nav-arrows{
-    margin-left:auto;
-    display:flex;
-    gap:6px;
-    flex-shrink:0;
-  }
+  .nav-arrows{margin-left:auto;display:flex;gap:6px;flex-shrink:0;}
 
-  .content{
-    flex:1;
-    overflow-y:auto;
-    padding:22px 26px 60px;
-  }
+  .content{flex:1;overflow-y:auto;padding:22px 26px 60px;}
   .content::-webkit-scrollbar{width:9px;}
   .content::-webkit-scrollbar-thumb{background:var(--line);border-radius:5px;}
-
-  .eyebrow{
-    font-size:11.5px;
-    color:var(--accent);
-    font-family:var(--mono);
-    margin-bottom:6px;
-  }
-  h1.qtitle{
-    font-size:21px;
-    line-height:1.3;
-    margin:0 0 16px;
-    color:#F1F5F9;
-    font-weight:650;
-    max-width:62ch;
-  }
-  .answer{
-    font-size:15px;
-    line-height:1.65;
-    color:var(--text);
-    max-width:70ch;
-  }
+  h1.qtitle{font-size:20px;line-height:1.35;margin:0 0 16px;color:#F1F5F9;font-weight:650;max-width:62ch;}
+  .answer{font-size:15px;line-height:1.7;color:var(--text);max-width:70ch;}
   .answer strong.kw{color:var(--accent);font-weight:600;}
 
-  .empty-state{
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:center;
-    color:var(--text-dim);
-    max-width:46ch;
-  }
-  .empty-state .big{
-    font-size:17px;
-    color:var(--text);
-    margin-bottom:8px;
-  }
+  .empty-state{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;color:var(--text-dim);max-width:46ch;}
+  .empty-state .big{font-size:17px;color:var(--text);margin-bottom:8px;}
   .empty-state .hint{font-size:13px;line-height:1.6;}
-  kbd{
-    background:var(--panel-2);
-    border:1px solid var(--line);
-    border-radius:3px;
-    padding:1px 5px;
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--text);
-  }
+  kbd{background:var(--panel-2);border:1px solid var(--line);border-radius:3px;padding:1px 5px;font-family:var(--mono);font-size:11px;color:var(--text);}
 
-  /* ---------- Mobile / narrow / split-screen ---------- */
   @media (max-width: 720px){
-    .sidebar{
-      position:fixed;
-      z-index:20;
-      top:0; left:0; bottom:0;
-      width:82vw;
-      min-width:0;
-      max-width:340px;
-      box-shadow:2px 0 24px rgba(0,0,0,.5);
-    }
+    .sidebar{position:fixed;z-index:20;top:0;left:0;bottom:0;width:82vw;min-width:0;max-width:340px;box-shadow:2px 0 24px rgba(0,0,0,.5);}
     .sidebar.collapsed{width:0;}
     .sidebar:not(.collapsed){width:82vw;}
     .content{padding:16px 16px 50px;}
     h1.qtitle{font-size:18px;}
     .answer{font-size:14.5px;}
-    .backdrop{
-      position:fixed;inset:0;
-      background:rgba(0,0,0,.45);
-      z-index:15;
-      display:none;
-    }
-    .backdrop.show{display:block;}
   }
-
   @media (max-width: 420px){
     .topbar{padding:8px 10px;}
     .content{padding:14px 12px 46px;}
@@ -322,17 +85,14 @@
 <body>
 
 <div class="app">
-
   <div class="backdrop" id="backdrop"></div>
 
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-head">
-      <div class="brand">
-        <span class="brand-title"><span class="dot"></span>SailPoint IIQ Prep</span>
-      </div>
+      <div class="brand"><span class="dot"></span>IT Support Interview Prep</div>
       <div class="search-wrap">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input id="search" type="text" placeholder="Search topics..." autocomplete="off">
+        <input id="search" type="text" placeholder="Search questions..." autocomplete="off">
       </div>
       <div class="search-count" id="searchCount"></div>
     </div>
@@ -346,12 +106,8 @@
       </button>
       <div class="crumbs" id="crumbs">Select a question to begin</div>
       <div class="nav-arrows">
-        <button class="icon-btn" id="prevBtn" title="Previous (↑)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-        </button>
-        <button class="icon-btn" id="nextBtn" title="Next (↓)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-        </button>
+        <button class="icon-btn" id="prevBtn" title="Previous (↑)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></button>
+        <button class="icon-btn" id="nextBtn" title="Next (↓)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg></button>
       </div>
     </div>
 
@@ -360,182 +116,81 @@
         <div class="big">Pick a question from the list</div>
         <div class="hint">
           Click any item on the left to pull up its answer here.<br><br>
-          Use <kbd>↑</kbd> <kbd>↓</kbd> to move between questions, and the search box to jump straight to a term.
-          Resize this window to half your screen — the list collapses into a drawer automatically so the answer pane stays readable during a call.
+          Use <kbd>↑</kbd> <kbd>↓</kbd> to move between questions. Resize this window to half your screen — the list collapses into a drawer automatically so the answer stays readable during a call.
         </div>
       </div>
     </div>
   </main>
-
 </div>
 
 <script>
 const DATA = [
   {
-    group: "Accounts & Access Review",
-    items: [
-      {
-        term: "Orphan Accounts",
-        html: `An <strong class="kw">orphan account</strong> is a user account in a target application that no longer has a valid, active owner — typically because the employee left the organization but the account was never disabled or removed.
-        <br><br>
-        SailPoint identifies these during <strong class="kw">aggregation</strong> by comparing accounts in target systems against active identities in the authoritative source (like HR). Any account that doesn't correlate to a real, active identity gets flagged as orphaned.
-        <br><br>
-        They're a serious security risk because they represent unmonitored access points — no one owns them, so no one is watching what they can do.`
-      },
-      {
-        term: "Access Review",
-        html: `Access review is the broader concept of periodically verifying that a user's access still aligns with their current job responsibilities.
-        <br><br>
-        It's the underlying <em>goal</em> — <strong class="kw">certification campaigns are the mechanism</strong>, and access review is the outcome that mechanism is built to accomplish.`
-      }
-    ]
+    term: "Tell us about a time you got something wrong. How did you find out, and what did you do next?",
+    short: "Time you got something wrong",
+    html: `In my current IT support job, there was a time when I was working on a ticket and realized that I hadn't included enough information in my documentation. I noticed it when I reviewed the ticket before it was escalated.
+    <br><br>
+    I went back, added the missing troubleshooting steps and details, and made sure the next technician could clearly understand what had already been done. Since then, I always review my ticket notes before closing or escalating them.
+    <br><br>
+    It taught me that <strong class="kw">small details and good documentation</strong> are really important in IT.`
   },
   {
-    group: "Certification Campaigns",
-    items: [
-      {
-        term: "Certification Campaign + Steps",
-        html: `A certification campaign is SailPoint's structured process for periodically reviewing and validating user access, to make sure people still need what they have.
-        <br><br>
-        Steps:
-        <ol style="margin:10px 0 0;padding-left:20px;">
-          <li>Define the scope of what's being reviewed</li>
-          <li>Generate the campaign</li>
-          <li>Assign reviewers (managers, app owners, etc.)</li>
-          <li>Run the review phase — access is approved or revoked</li>
-          <li>Escalate overdue reviews</li>
-          <li>Close out the campaign once complete</li>
-          <li>Trigger remediation (deprovisioning) for anything revoked</li>
-        </ol>`
-      },
-      {
-        term: "Types of Certification Campaigns",
-        html: `SailPoint supports several campaign types depending on who needs to review what:
-        <ul style="margin:10px 0 0;padding-left:20px;">
-          <li><strong class="kw">Manager Campaigns</strong> — managers certify their direct reports</li>
-          <li><strong class="kw">Application Owner Campaigns</strong> — owners certify access to their specific app</li>
-          <li><strong class="kw">Entitlement Owner Campaigns</strong> — owners certify who holds a particular entitlement</li>
-          <li><strong class="kw">Role Composition Campaigns</strong> — reviewing what entitlements make up a role</li>
-          <li><strong class="kw">Event-Based Campaigns</strong> — triggered by specific events like a role or department change</li>
-        </ul>
-        Each targets a different angle of access governance.`
-      },
-      {
-        term: "Escalation",
-        html: `Escalation is the automated fallback SailPoint uses when a certifier (manager or app owner) fails to complete their access review within the required timeframe.
-        <br><br>
-        At that point, the review gets forwarded to a <strong class="kw">backup reviewer</strong> — usually the certifier's manager — so reviews don't stall out and access risk doesn't go unchecked.`
-      }
-    ]
+    term: "What is a virtual machine, and why would an organization use one instead of a physical server?",
+    short: "What is a virtual machine?",
+    html: `A virtual machine is basically a computer that runs virtually on a physical computer. It has its own operating system, memory, storage, and applications, just like a physical computer.
+    <br><br>
+    Organizations can run <strong class="kw">multiple virtual servers on one physical server</strong>, which helps them use hardware more efficiently, reduce costs and physical space, and makes servers easier to manage.
+    <br><br>
+    I'm currently taking a Data Management &amp; Security in Cloud class, so I'm learning more about cloud and virtual environments. I'm still building my hands-on experience, but I understand the basic concepts and I'm interested in learning more.`
   },
   {
-    group: "Application Onboarding",
-    items: [
-      {
-        term: "Application Onboarding",
-        html: `The process of integrating a new application into SailPoint so it can be governed — meaning its accounts, entitlements, and access can be aggregated, certified, and provisioned through the platform rather than managed manually.
-        <br><br>
-        It's a foundational step for extending identity governance to any new system in the environment.`
-      },
-      {
-        term: "Steps of Application Onboarding",
-        html: `<ol style="margin:0;padding-left:20px;">
-          <li>Gather requirements about the app's schema and access model</li>
-          <li>Configure the appropriate connector</li>
-          <li>Map the app's attributes to SailPoint's identity model</li>
-          <li>Run an initial aggregation to pull in existing accounts and entitlements</li>
-          <li>Correlate those accounts to real identities</li>
-          <li>Organize entitlements into roles if needed</li>
-          <li>Set up provisioning policies</li>
-          <li>Test the full account lifecycle (create / modify / disable)</li>
-          <li>Configure certification campaigns for ongoing governance</li>
-          <li>Go live with the app fully managed</li>
-        </ol>`
-      },
-      {
-        term: "Aggregation",
-        html: `Aggregation is the process by which SailPoint reads and pulls in data — accounts, entitlements, and identity attributes — from target applications or authoritative sources into its own identity warehouse.
-        <br><br>
-        It's what gives SailPoint <strong class="kw">visibility</strong> into what access actually exists across the organization's systems, so it can be governed and correlated to real identities.`
-      }
-    ]
+    term: "Beyond general web search or asking AI, where do you find reliable technical information?",
+    short: "Where you find reliable info",
+    html: `I usually start with official documentation from the company or technology provider, such as Microsoft documentation. At my current job, I also use our internal knowledge base, SOPs, and previous TeamDynamix tickets when appropriate.
+    <br><br>
+    If I still can't find the answer or I'm not sure, I ask a supervisor or someone on the technical team who has more experience. I think it's important to <strong class="kw">verify information before making changes</strong> to a system.`
   },
   {
-    group: "Identity Lifecycle",
-    items: [
-      {
-        term: "Birthright Access",
-        html: `The baseline set of access every employee automatically receives simply by being part of the organization, without needing to request it — think email, VPN, or intranet access.
-        <br><br>
-        It's typically driven by attributes like department, location, or job title, and is automatically provisioned the moment someone joins, as part of the <strong class="kw">Joiner</strong> process.`
-      },
-      {
-        term: "JML Workflow",
-        html: `JML = <strong class="kw">Joiner–Mover–Leaver</strong>, the complete identity lifecycle managed by SailPoint.
-        <br><br>
-        <ul style="margin:10px 0 0;padding-left:20px;">
-          <li><strong>Joiner</strong> — a new employee is provisioned with birthright access automatically</li>
-          <li><strong>Mover</strong> — an employee changes roles; old access is removed, new access is granted</li>
-          <li><strong>Leaver</strong> — an employee exits and all their access should be deprovisioned</li>
-        </ul>
-        <br>
-        Failures in the Leaver step are the <strong class="kw">most common cause of orphan accounts</strong> — worth calling out directly if asked about orphan accounts too.`
-      }
-    ]
+    term: "What operating systems have you used? Have you used the command line?",
+    short: "OS & command line experience",
+    html: `Yes. I've worked with Windows, macOS, and Linux, and I have used command-line tools. I've used Command Prompt and PowerShell on Windows and Terminal on macOS and Linux.
+    <br><br>
+    I've used commands like <strong class="kw">ipconfig</strong> and <strong class="kw">ifconfig</strong> to check network information, <strong class="kw">ping</strong> to test connectivity, <strong class="kw">netstat</strong> to check network connections, and <strong class="kw">cd</strong>, <strong class="kw">ls</strong>, and <strong class="kw">dir</strong> to navigate files and folders. I've also used basic PowerShell commands like <strong class="kw">Get-Process</strong> and <strong class="kw">Get-Service</strong>.
+    <br><br>
+    My command-line experience is still basic, but I'm comfortable using it and continuing to learn.`
   },
   {
-    group: "Provisioning",
-    items: [
-      {
-        term: "Provisioning Flow",
-        html: `The end-to-end process of actually granting or revoking access in a target system.
-        <br><br>
-        Trigger (access request, role assignment, or lifecycle event) → SailPoint turns it into a <strong class="kw">provisioning plan</strong> → sends it to the relevant connector → executes on the target application → result (success or failure) is reported back into SailPoint for tracking.`
-      },
-      {
-        term: "Provisioning Plan",
-        html: `The detailed technical instruction set SailPoint generates to tell a connector exactly what action to perform — creating an account, modifying attributes, adding/removing entitlements — for a specific identity in a specific target application.
-        <br><br>
-        It's the <strong class="kw">blueprint</strong> that drives the provisioning flow.`
-      }
-    ]
+    term: "A user reports that a server or service is unreachable. What would you do?",
+    short: "Server/service unreachable",
+    html: `First, I would confirm the problem and find out whether it is affecting just one user or multiple users. Then I would check basic connectivity, such as using ping, and look at the monitoring dashboard for alerts or known outages.
+    <br><br>
+    I would check whether the server or service is running and look for any recent changes that might have caused the issue.
+    <br><br>
+    If I couldn't resolve it, I would <strong class="kw">document everything I checked and escalate it</strong> to the appropriate person.`
   },
   {
-    group: "Roles",
-    items: [
-      {
-        term: "Types of Roles",
-        html: `<ul style="margin:0;padding-left:20px;">
-          <li><strong class="kw">Business Roles</strong> — reflect real job functions, bundle multiple technical entitlements</li>
-          <li><strong class="kw">IT Roles</strong> — purely technical groupings of entitlements</li>
-          <li><strong class="kw">Birthright Roles</strong> — automatically assigned based on attributes like department</li>
-          <li><strong class="kw">Requestable Roles</strong> — must be manually requested by users via self-service</li>
-          <li><strong class="kw">Assigned Roles</strong> — directly and manually given to specific individuals by an admin</li>
-        </ul>`
-      }
-    ]
+    term: "What does it mean for a server to be healthy? What would you look at?",
+    short: "What makes a server \\"healthy\\"",
+    html: `A healthy server means that it is online, stable, performing normally, and providing the services it is supposed to provide.
+    <br><br>
+    I would check <strong class="kw">CPU usage, memory usage, disk space, network activity, uptime</strong>, and whether important services are running. I would also check monitoring alerts and logs for errors.
+    <br><br>
+    Even if a server is online, high CPU or memory usage, low disk space, or a failed service could mean there is a problem.`
   }
 ];
 
-// Flatten for prev/next + search
-const FLAT = [];
-DATA.forEach((g, gi) => g.items.forEach((it, ii) => FLAT.push({ ...it, group: g.group, gi, ii })));
+const FLAT = DATA.map((d, i) => ({...d, i}));
+let currentIndex = -1;
 
-const navEl = document.getElementById('nav');
-const contentEl = document.getElementById('content');
-const crumbsEl = document.getElementById('crumbs');
-const searchEl = document.getElementById('search');
-const searchCountEl = document.getElementById('searchCount');
-const sidebarEl = document.getElementById('sidebar');
-const backdropEl = document.getElementById('backdrop');
+const nav = document.getElementById('nav');
+const content = document.getElementById('content');
+const crumbs = document.getElementById('crumbs');
+const search = document.getElementById('search');
+const searchCount = document.getElementById('searchCount');
+const sidebar = document.getElementById('sidebar');
+const backdrop = document.getElementById('backdrop');
 
-let currentFlatIndex = -1;
-let openGroups = new Set(DATA.map((_, i) => i)); // all open by default
-
-function escapeHtml(s){
-  return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-}
-
+function escapeHtml(s){ return s.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])); }
 function highlight(text, q){
   if(!q) return escapeHtml(text);
   const idx = text.toLowerCase().indexOf(q.toLowerCase());
@@ -544,94 +199,62 @@ function highlight(text, q){
 }
 
 function renderNav(){
-  const q = searchEl.value.trim().toLowerCase();
-  navEl.innerHTML = '';
-
-  const itemsToShow = FLAT
-    .map((it, flatIdx) => ({...it, flatIdx}))
-    .filter(it => !q || it.term.toLowerCase().includes(q) || it.group.toLowerCase().includes(q));
-
-  itemsToShow.forEach(it => {
+  const q = search.value.trim().toLowerCase();
+  nav.innerHTML = '';
+  const list = FLAT.filter(d => !q || d.term.toLowerCase().includes(q) || d.short.toLowerCase().includes(q));
+  list.forEach(d => {
     const b = document.createElement('button');
-    b.className = 'item' + (it.flatIdx === currentFlatIndex ? ' active' : '');
-    b.innerHTML = highlight(it.term, q);
-    b.addEventListener('click', () => selectItem(it.flatIdx));
-    navEl.appendChild(b);
+    b.className = 'item' + (d.i === currentIndex ? ' active' : '');
+    b.innerHTML = highlight(d.short, q);
+    b.addEventListener('click', () => selectItem(d.i));
+    nav.appendChild(b);
   });
-
   if(q){
-    searchCountEl.textContent = itemsToShow.length + (itemsToShow.length === 1 ? ' match' : ' matches');
-    if(itemsToShow.length === 0){
-      navEl.innerHTML = '<div class="no-results">No questions match "' + escapeHtml(searchEl.value) + '"</div>';
-    }
+    searchCount.textContent = list.length + (list.length === 1 ? ' match' : ' matches');
+    if(list.length === 0) nav.innerHTML = '<div class="no-results">No questions match "' + escapeHtml(search.value) + '"</div>';
   } else {
-    searchCountEl.textContent = FLAT.length + ' questions';
+    searchCount.textContent = DATA.length + ' questions';
   }
 }
 
-function selectItem(flatIdx){
-  if(flatIdx < 0 || flatIdx >= FLAT.length) return;
-  currentFlatIndex = flatIdx;
-  const it = FLAT[flatIdx];
-  openGroups.add(it.gi);
-
-  crumbsEl.innerHTML = '<b>' + escapeHtml(it.term) + '</b>';
-  contentEl.innerHTML = `
-    <h1 class="qtitle">${escapeHtml(it.term)}</h1>
-    <div class="answer">${it.html}</div>
-  `;
-  contentEl.scrollTop = 0;
+function selectItem(i){
+  if(i < 0 || i >= DATA.length) return;
+  currentIndex = i;
+  const d = DATA[i];
+  crumbs.innerHTML = '<b>' + escapeHtml(d.short) + '</b>';
+  content.innerHTML = `<h1 class="qtitle">${escapeHtml(d.term)}</h1><div class="answer">${d.html}</div>`;
+  content.scrollTop = 0;
   renderNav();
-
-  if(window.innerWidth <= 720){
-    closeSidebar();
-  }
+  if(window.innerWidth <= 720) closeSidebar();
 }
 
-function openSidebar(){
-  sidebarEl.classList.remove('collapsed');
-  if(window.innerWidth <= 720) backdropEl.classList.add('show');
-}
-function closeSidebar(){
-  sidebarEl.classList.add('collapsed');
-  backdropEl.classList.remove('show');
-}
-function toggleSidebar(){
-  if(sidebarEl.classList.contains('collapsed')) openSidebar();
-  else closeSidebar();
-}
-
-document.getElementById('toggleSidebar').addEventListener('click', toggleSidebar);
-backdropEl.addEventListener('click', closeSidebar);
-
+search.addEventListener('input', renderNav);
 document.getElementById('prevBtn').addEventListener('click', () => {
-  if(currentFlatIndex > 0) selectItem(currentFlatIndex - 1);
-  else if(currentFlatIndex === -1 && FLAT.length) selectItem(0);
+  if(currentIndex > 0) selectItem(currentIndex - 1); else if(currentIndex === -1) selectItem(0);
 });
 document.getElementById('nextBtn').addEventListener('click', () => {
-  if(currentFlatIndex < FLAT.length - 1) selectItem(currentFlatIndex + 1);
+  if(currentIndex < DATA.length - 1) selectItem(currentIndex + 1);
 });
 
-searchEl.addEventListener('input', renderNav);
+function openSidebar(){ sidebar.classList.remove('collapsed'); if(window.innerWidth <= 720) backdrop.classList.add('show'); }
+function closeSidebar(){ sidebar.classList.add('collapsed'); backdrop.classList.remove('show'); }
+function toggleSidebar(){ if(sidebar.classList.contains('collapsed')) openSidebar(); else closeSidebar(); }
+document.getElementById('toggleSidebar').addEventListener('click', toggleSidebar);
+backdrop.addEventListener('click', closeSidebar);
 
 document.addEventListener('keydown', (e) => {
-  if(document.activeElement === searchEl){
-    if(e.key === 'Escape'){ searchEl.blur(); }
+  if(document.activeElement === search){
+    if(e.key === 'Escape') search.blur();
     return;
   }
-  if(e.key === 'ArrowDown'){ e.preventDefault(); if(currentFlatIndex < FLAT.length - 1) selectItem(currentFlatIndex + 1); else if(currentFlatIndex===-1) selectItem(0); }
-  if(e.key === 'ArrowUp'){ e.preventDefault(); if(currentFlatIndex > 0) selectItem(currentFlatIndex - 1); }
-  if(e.key === '/'){ e.preventDefault(); searchEl.focus(); }
+  if(e.key === 'ArrowDown'){ e.preventDefault(); if(currentIndex < DATA.length - 1) selectItem(currentIndex + 1); else if(currentIndex===-1) selectItem(0); }
+  if(e.key === 'ArrowUp'){ e.preventDefault(); if(currentIndex > 0) selectItem(currentIndex - 1); }
+  if(e.key === '/'){ e.preventDefault(); search.focus(); }
 });
 
-// Auto-collapse sidebar on small/split screens on load
 function autoCollapseCheck(){
-  if(window.innerWidth <= 720){
-    sidebarEl.classList.add('collapsed');
-  } else {
-    sidebarEl.classList.remove('collapsed');
-    backdropEl.classList.remove('show');
-  }
+  if(window.innerWidth <= 720){ sidebar.classList.add('collapsed'); }
+  else { sidebar.classList.remove('collapsed'); backdrop.classList.remove('show'); }
 }
 window.addEventListener('resize', autoCollapseCheck);
 autoCollapseCheck();
